@@ -95,7 +95,7 @@
         
         .nav-link:hover {
             background-color: rgba(255,255,255,0.15);
-            color: #fff;
+            color: #bd2222;
             transform: translateX(5px);
         }
         

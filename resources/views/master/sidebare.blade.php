@@ -22,7 +22,7 @@
     
     <!-- Manajemen Penyakit -->
     <li class="nav-item w-100">
-        <a href="#" class="nav-link">
+        <a href="{{ route('admin.manajemen-penyakit') }}" class="nav-link {{ Request::routeIs('admin.manajemen-penyakit') ? 'active' : '' }}">
             <i class="bi bi-file-medical-fill"></i>
             <span>Manajemen Penyakit</span>
         </a>
@@ -30,7 +30,7 @@
     
     <!-- Peta Sebaran -->
     <li class="nav-item w-100">
-        <a href="#" class="nav-link">
+        <a href="#" class="nav-link {{ Request::routeIs('admin.peta-sebaran*') ? 'active' : '' }}">
             <i class="bi bi-map-fill"></i>
             <span>Peta Sebaran</span>
         </a>

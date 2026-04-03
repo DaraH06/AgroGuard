@@ -251,5 +251,47 @@
     
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        // BAR CHART
+        const ctx1 = document.getElementById('penyakitChart');
+        if (ctx1) {
+            new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                    labels: ['Penyakit Daun', 'Busuk Batang', 'Hama Wereng'],
+                    datasets: [{
+                        label: 'Jumlah Kasus',
+                        data: [10, 8, 6],
+                        backgroundColor: ['#2b5e3b','#4CAF50','#A5D6A7']
+                    }]
+                }
+            });
+        }
+
+        // LINE CHART
+        const ctx2 = document.getElementById('laporanChart');
+        if (ctx2) {
+            new Chart(ctx2, {
+                type: 'line',
+                data: {
+                    labels: ['10 Mar', '11 Mar', '12 Mar'],
+                    datasets: [{
+                        label: 'Jumlah Laporan',
+                        data: [5, 9, 6, 12,],
+                        borderColor: '#2b5e3b',
+                        backgroundColor: 'rgba(43,94,59,0.2)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                }
+            });
+        }
+
+    });
+</script>
 </body>
-</html>
+</html>~

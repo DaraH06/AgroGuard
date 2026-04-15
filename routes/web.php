@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\autentikasi;
+use App\Http\Controllers\crud_penyakit;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -9,20 +11,7 @@ Route::get('/login', function () {
     return view('auth.login');
 });
 
-Route::post('login', function (Request $request) {
-    $credentials = $request->validate([
-        'email' => 'required|email',
-        'password' => 'required',
-    ]);
-
-    if (Auth::attempt($credentials)) {
-        $request->session()->regenerate();
-        return redirect()->intended('admin/dashboard');
-    }
-
-    return back()->withErrors(['email' => 'Email atau password salah!']);
-})->name('login');
-
+Route::post('login', [autentikasi::class, 'login'])->name('login');
 Route::get('/forgot-password', function () {
     return view('auth.forgot-password'); 
 })->name('password.request');
@@ -44,4 +33,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/manajemen-penyakit', function () {
         return view('admin.manajemenPenyakit.ManajemenPenyakit');
     })->name('manajemen-penyakit');
+
+    Route::get('/penyakit/{id}', [crud_penyakit::class, 'show'])->name('penyakit.show');
+    Route::post('/penyakit/store', [crud_penyakit::class, 'store'])->name('penyakit.store');
+    Route::put('/penyakit/update', [crud_penyakit::class, 'update'])->name('penyakit.update');
+    Route::delete('/penyakit/delete', [crud_penyakit::class, 'destroy'])->name('penyakit.delete');
 });

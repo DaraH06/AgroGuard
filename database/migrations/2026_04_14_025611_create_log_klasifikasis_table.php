@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $coll) {
-            $coll->unique('email');
-        });
-
-        Schema::create('password_reset_tokens', function (Blueprint $coll) {
-            $coll->unique('email');
+        Schema::create('log_klasifikasis', function (Blueprint $coll) {
+            $coll->timestamps();
         });
     }
 
@@ -25,7 +21,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
+        Schema::dropIfExists('log_klasifikasis');
     }
 };

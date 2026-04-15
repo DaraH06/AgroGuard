@@ -16,6 +16,7 @@ class autentikasi extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+            session(['email'=>$request->email]);
             return redirect()->intended('admin/dashboard');
         }
         return back()->withErrors(['email' => 'Email atau password salah!']);

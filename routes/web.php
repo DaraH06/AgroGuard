@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\autentikasi;
 use App\Http\Controllers\crud_penyakit;
+use App\Http\Controllers\dashboard;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,6 +22,10 @@ Route::post('/forgot-password', function () {
     return "Link reset password telah dikirim ke email Anda! (Logika backend menyusul)";
 })->name('password.email');
 
+Route::prefix('api_admin')->name('api_admin.')->group(function() {
+    Route::post('dashboard', [dashboard::class, 'index']);
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 });
@@ -33,6 +38,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/manajemen-penyakit', function () {
         return view('admin.manajemenPenyakit.ManajemenPenyakit');
     })->name('manajemen-penyakit');
+
+    Route::get('peta-sebaran', function(){
+        return view('admin.peta.sebaran');
+    })->name('peta-sebaran');
 
     Route::get('/penyakit/{id}', [crud_penyakit::class, 'show'])->name('penyakit.show');
     Route::post('/penyakit/store', [crud_penyakit::class, 'store'])->name('penyakit.store');

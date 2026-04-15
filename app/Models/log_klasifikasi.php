@@ -10,7 +10,9 @@ class log_klasifikasi extends Model
     const UPDATED_AT = null;
     use HasFactory;
     protected $collection = 'log_klasifikasi';
+    protected $casts = ['created_at'=> 'datetime:Y-m-d h-m-s'];
     protected $guarded = [];
+    protected $hidden = ['_id'];
 
 
 }

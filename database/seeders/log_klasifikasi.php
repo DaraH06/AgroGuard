@@ -13,6 +13,6 @@ class log_klasifikasi extends Seeder
     public function run(): void
     {
         \App\Models\log_klasifikasi::truncate();
-        \App\Models\log_klasifikasi::factory(100)->create();
+        \App\Models\log_klasifikasi::factory(500)->create();
     }
 }

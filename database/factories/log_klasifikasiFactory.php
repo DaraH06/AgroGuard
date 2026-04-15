@@ -17,9 +17,14 @@ class log_klasifikasiFactory extends Factory
      */
     public function definition(): array
     {
+        $kab = $this->faker->randomElement(['Jember', 'Situbondo', 'Lumajang']);
         return [
-            'lokasi'=>$this->faker->city(),
-            'keyakinan_model'=>$this->faker->randomFloat(2, 0.70, 0.99),
+            'lokasi'=>[
+                'provinsi' =>'Jawa Timur',
+                'kabupaten'=>$kab,
+                'kecamatan'=>$this->faker->randomElement(config('konstanta.daerah')[$kab])
+                ],
+            'keyakinan_model'=>$this->faker->randomFloat(2, 0.40, 0.99),
             'hasil_label'=>$this->faker->randomElement(['Healthy', 'BrownSpot', 'Hispa', 'LeafBlast']),
             'created_at' => $this->faker->dateTimeBetween('-3 week', 'now')
         ];

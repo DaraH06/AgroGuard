@@ -48,18 +48,7 @@
     <!-- CONTENT -->
     <main class="content">
 
-        <!-- HEADER -->
-        <div class="header">
-            <input type="text" placeholder="Cari data, laporan, atau hama..." class="search">
-
-            <div class="header-right">
-                <span class="notif">🔔</span>
-                <div class="profile">
-                    <strong>Dr. Ahmad Faisal</strong>
-                    <small>Ahli Tanaman Senior</small>
-                </div>
-            </div>
-        </div>
+        @include('master.navbar')
 
         @yield('content')
 

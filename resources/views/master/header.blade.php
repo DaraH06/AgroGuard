@@ -248,6 +248,7 @@
             <!-- Main Content -->
             <div class="content-wrapper">
                 @yield('content')
+                
             </div>
         </div>
     </div>

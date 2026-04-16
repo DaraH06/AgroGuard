@@ -35,11 +35,11 @@
         </li>
         
         <li class="nav-item w-100">
-            <a href="#" 
-               class="nav-link {{ Request::routeIs('admin.peta-sebaran*') ? 'active' : '' }}"
+            <a href="{{ route('admin.peta-sebaran') }}" 
+               class="nav-link {{ Request::routeIs('admin.peta-sebaran') ? 'active' : '' }}"
                style="display: flex; align-items: center; gap: 10px; text-decoration: none; padding: 12px 15px; border-radius: 10px; transition: 0.3s;
-                      {{ Request::routeIs('admin.peta-sebaran*') ? 'background-color: #d1e7dd; color: #1e3a2f !important;' : 'color: #64748b;' }}">
-                <i class="bi bi-map-fill" style="{{ Request::routeIs('admin.peta-sebaran*') ? 'color: #16a34a;' : 'color: #64748b;' }}"></i>
+                      {{ Request::routeIs('admin.peta-sebaran') ? 'background-color: #d1e7dd; color: #1e3a2f !important;' : 'color: #64748b;' }}">
+                <i class="bi bi-map-fill" style="{{ Request::routeIs('admin.peta-sebaran') ? 'color: #16a34a;' : 'color: #64748b;' }}"></i>
                 <span style="font-weight: 500;">Peta Sebaran</span>
             </a>
         </li>

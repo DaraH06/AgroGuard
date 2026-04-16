@@ -24,11 +24,9 @@ Route::post('/forgot-password', function () {
 
 Route::prefix('api_admin')->name('api_admin.')->group(function() {
     Route::post('dashboard', [dashboard::class, 'index']);
+    Route::get('map', [dashboard::class, 'mapVisualisasi']);
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-});
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', function () {

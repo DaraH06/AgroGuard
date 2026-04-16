@@ -64,17 +64,17 @@ class dashboard extends Controller
         ]);
     }
 
-    function visualisasiLokasi(Request $req){
-        $req->validate(['tahun'=>'required|numeric|min:2010']);
+    function mapVisualisasi(Request $req){
+        $tahun = $req->validate(['tahun'=>'required|numeric|min:2010']);
 
-        $dataMentah = log_klasifikasi::whereYear('created_at', $req->tahun);
-        $jmlKabupaten = $dataMentah->groupBy('lokasi.kabupaten')->map->count();
-        $statistikKec = $dataMentah->groupBy('lokasi.kecamatan')->map->count();
+        $dataMentah = log_klasifikasi::whereYear('created_at', (int) $tahun['tahun'])
+        ->project(['_id'=>0])->get();
+
+        $statistikLabel = $dataMentah->groupBy('hasil_label');
         
         return response()->json([
             'status'=>true, 'data'=>[
-                'statistik_kabupaten' => $jmlKabupaten,
-                'visual_kecamatan' => $statistikKec
+                'visual_map' => $statistikLabel
             ]
         ]);
     }

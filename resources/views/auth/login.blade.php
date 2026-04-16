@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - AgroGuard</title>
+    <link rel="icon" type="image/png" href="{{ asset('assets/image/ikon.png') }}">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
     <style>
         body {
             margin: 0;
             height: 100vh;
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Poppins', sans-serif;
             background-color: #fff;
             overflow: hidden;
         }
@@ -23,7 +27,7 @@
         }
 
         .left {
-            width: 45%; 
+            width: 45%;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -32,15 +36,15 @@
 
         .login-box {
             width: 100%;
-            max-width: 580px; 
-            padding: 0 40px; 
+            max-width: 580px;
+            padding: 0 40px;
             display: flex;
             flex-direction: column;
         }
 
         .login-header {
-            font-family: 'Segoe UI', sans-serif;
-            font-size: 36px; 
+            font-family: 'Poppins', sans-serif;
+            font-size: 36px;
             font-weight: 700;
             color: #193f25;
             margin-bottom: 35px;
@@ -67,17 +71,17 @@
             left: 25px;
             transform: translateY(-50%);
             color: #999;
-            font-size: 24px; 
+            font-size: 24px;
             z-index: 10;
         }
 
         .form-control-custom {
             width: 100%;
-            padding: 18px 25px 18px 70px; 
+            padding: 18px 25px 18px 70px;
             border-radius: 14px;
             border: 1.5px solid #e0e0e0;
             background-color: #e4f5eb;
-            font-size: 19px; 
+            font-size: 19px;
             transition: 0.3s;
         }
 
@@ -95,14 +99,14 @@
             transform: translateY(-50%);
             cursor: pointer;
             color: #888;
-            font-size: 24px; 
+            font-size: 24px;
             z-index: 10;
         }
 
         .login-options a {
-            font-size: 17px; 
-            font-weight: 600; 
-            color: #2b5e3b; 
+            font-size: 17px;
+            font-weight: 600;
+            color: #2b5e3b;
             text-decoration: none;
             transition: 0.3s;
         }
@@ -126,7 +130,7 @@
             border-radius: 14px;
             padding: 18px;
             font-weight: 700;
-            font-size: 22px; 
+            font-size: 22px;
             border: none;
             width: 100%;
             transition: 0.3s;
@@ -144,9 +148,9 @@
             background: radial-gradient(circle at 30% 40%, #1e4a2c 0%, #0d2118 100%);
             color: white;
             display: flex;
-            justify-content: flex-start; 
+            justify-content: flex-start;
             align-items: center;
-            padding: 80px 60px 80px 100px; 
+            padding: 80px 60px 80px 100px;
             position: relative;
             overflow: hidden;
         }
@@ -156,15 +160,15 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 8px; 
+            width: 8px;
             height: 100%;
             background: linear-gradient(to right, #ffffff 50%, #a1a1a1 50%);
             z-index: 5;
         }
 
         .right-content {
-            max-width: 90%; 
-            text-align: left; 
+            max-width: 90%;
+            text-align: left;
             position: relative;
             z-index: 2;
         }
@@ -185,76 +189,94 @@
         }
 
         @media (max-width: 992px) {
-            .container-login { flex-direction: column; overflow-y: auto; }
-            .left, .right { width: 100%; height: auto; padding: 60px 20px; }
-            .login-box { max-width: 100%; }
+            .container-login {
+                flex-direction: column;
+                overflow-y: auto;
+            }
+
+            .left,
+            .right {
+                width: 100%;
+                height: auto;
+                padding: 60px 20px;
+            }
+
+            .login-box {
+                max-width: 100%;
+            }
         }
     </style>
 </head>
+
 <body>
 
-<div class="container-login">
-    <div class="left">
-        <div class="login-box">
-            <div class="login-header">Login</div>
-            @if ($errors->any())
-            <div class="alert alert-danger" style="font-size: 15px; border-radius: 10px; margin-bottom: 20px;">
-                {{ $errors->first() }}
+    <div class="container-login">
+        <div class="left">
+            <div class="login-box">
+                <div class="login-header">Login</div>
+                @if ($errors->any())
+                <div class="alert alert-danger" style="font-size: 15px; border-radius: 10px; margin-bottom: 20px;">
+                    {{ $errors->first() }}
+                </div>
+                @endif
+
+                <form action="{{ route('login') }}" method="POST">
+                    @csrf <div class="form-group">
+                        <label for="email">Email <span class="text-danger">*</span></label>
+                        <div class="input-group-custom">
+                            <i class="bi bi-envelope left-icon"></i>
+                            <input type="email" name="email" id="email" class="form-control-custom"
+                                placeholder="contoh@agroguard.id" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password <span class="text-danger">*</span></label>
+                        <div class="input-group-custom">
+                            <i class="bi bi-lock left-icon"></i>
+                            <input type="password" name="password" id="password" class="form-control-custom"
+                                placeholder="••••••••••••" required>
+                            <i class="bi bi-eye toggle-password" onclick="togglePassword()"></i>
+                        </div>
+                    </div>
+
+                    <div class="login-options">
+                        <a href="{{ route('password.request') }}"
+                            style="text-decoration:none; color:#2b5e3b; font-weight: 600;">
+                            Lupa Password?
+                        </a>
+                    </div>
+
+                    <button type="submit" class="btn btn-login">Login</button>
+                </form>
             </div>
-        @endif
+        </div>
 
-            <form action="{{ route('login') }}" method="POST">
-                @csrf <div class="form-group">
-                    <label for="email">Email <span class="text-danger">*</span></label>
-                    <div class="input-group-custom">
-                        <i class="bi bi-envelope left-icon"></i>
-                        <input type="email" name="email" id="email" class="form-control-custom" placeholder="contoh@agroguard.id" required>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="password">Password <span class="text-danger">*</span></label>
-                    <div class="input-group-custom">
-                        <i class="bi bi-lock left-icon"></i>
-                        <input type="password" name="password" id="password" class="form-control-custom" placeholder="••••••••••••" required>
-                        <i class="bi bi-eye toggle-password" onclick="togglePassword()"></i>
-                    </div>
-                </div>
-
-                <div class="login-options">
-                    <a href="{{ route('password.request') }}" style="text-decoration:none; color:#2b5e3b; font-weight: 600;">
-                        Lupa Password?
-                    </a>
-                </div>
-
-                <button type="submit" class="btn btn-login">Login</button>
-            </form>
+        <div class="right">
+            <div class="right-content">
+                <span class="right-logo">AgroGuard</span>
+                <p>
+                    Sistem informasi terintegrasi untuk monitoring, deteksi dini, dan pelaporan penyakit tanaman secara
+                    efektif. Kami membantu petani dan ahli agronomi mengambil keputusan cepat berbasis data untuk hasil
+                    panen yang lebih baik.
+                </p>
+            </div>
         </div>
     </div>
 
-    <div class="right">
-        <div class="right-content">
-            <span class="right-logo">AgroGuard</span>
-            <p>
-                Sistem informasi terintegrasi untuk monitoring, deteksi dini, dan pelaporan penyakit tanaman secara efektif. Kami membantu petani dan ahli agronomi mengambil keputusan cepat berbasis data untuk hasil panen yang lebih baik.
-            </p>
-        </div>
-    </div>
-</div>
-
-<script>
-function togglePassword() {
-    const input = document.getElementById("password");
-    const icon = document.querySelector(".toggle-password");
-    if (input.type === "password") {
-        input.type = "text";
-        icon.classList.replace("bi-eye", "bi-eye-slash");
-    } else {
-        input.type = "password";
-        icon.classList.replace("bi-eye-slash", "bi-eye");
-    }
-}
-</script>
+    <script>
+        function to            Passw            ) {
+            const input = docu.getElementBy            password");
+            const ic             document.querySelect                            password");
+                .type === "password") inp = "text";
+            lassList.                "bi-eye", "bi-eye-            h"        )
+        } else {
+            input.type = "passw            ;
+            icon.classList.replace("bi-eye-slash", "bi-eye");
+        }
+        }
+    </script>
 
 </body>
+
 </html>

@@ -1,4 +1,7 @@
 *
 !private/
 !public/
+!uploads/
+!processing/
+!archieves/
 !.gitignore

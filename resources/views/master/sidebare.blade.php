@@ -49,8 +49,19 @@
             </a>
         </li>
 
+        <li class="nav-item w-100">
+            <a href="{{ route('admin.user.index') }}"
+                class="nav-link {{ Request::routeIs('admin.user.index') ? 'active' : '' }}"
+                style="display: flex; align-items: center; gap: 10px; text-decoration: none; padding: 12px 15px; border-radius: 10px; transition: 0.3s;
+                      {{ Request::routeIs('admin.user.index') ? 'background-color: #d1e7dd; color: #1e3a2f !important;' : 'color: #64748b;' }}">
+                <i class="bi bi-people-fill"
+                    style="{{ Request::routeIs('admin.user.index') ? 'color: #16a34a;' : 'color: #64748b;' }}"></i>
+                <span style="font-weight: 500;">Manajemen User</span>
+            </a>
+        </li>
+
         <li class="nav-item w-100 mt-auto" style="margin-top: auto !important; padding-bottom: 5px;">
-            <a href="#" class="nav-link logout" style="color: #f87171; 
+            <a href="{{ route('logout') }}" class="nav-link logout" style="color: #f87171; 
                         display: flex; 
                         align-items: center; 
                         gap: 12px; 

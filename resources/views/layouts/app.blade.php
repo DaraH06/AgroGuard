@@ -17,7 +17,7 @@
             <h2>AgroGuard</h2>
         </div>
 
-        <p class="menu-title">MENU UTAMA</p>
+        <p class="menu-title">MENU </p>
 
         <ul class="menu">
             <li class="menu-item {{ request()->is('dashboard') ? 'active' : '' }}">

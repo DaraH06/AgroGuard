@@ -3,6 +3,7 @@
 use App\Http\Controllers\autentikasi;
 use App\Http\Controllers\crud_penyakit;
 use App\Http\Controllers\dashboard;
+use App\Http\Controllers\ManajemenUserController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,6 +24,7 @@ Route::get('/login', function () {
 })->name('login');
 
 Route::post('login', [autentikasi::class , 'login']);
+Route::get('/logout', [autentikasi::class , 'logout'])->name('logout');
 Route::get('/forgot-password', function () {
     return view('auth.forgot-password');
 })->name('password.request');
@@ -58,4 +60,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/penyakit/store', [crud_penyakit::class , 'store'])->name('penyakit.store');
         Route::put('/penyakit/update', [crud_penyakit::class , 'update'])->name('penyakit.update');
         Route::delete('/penyakit/delete', [crud_penyakit::class , 'destroy'])->name('penyakit.delete');
+
+        Route::get('/manajemen-user', [ManajemenUserController::class, 'index'])->name('user.index');
+        Route::get('/manajemen-user/create', [ManajemenUserController::class, 'create'])->name('user.create');
+        Route::post('/user/store', [ManajemenUserController::class, 'store'])->name('user.store');
+        Route::delete('/user/delete', [ManajemenUserController::class, 'destroy'])->name('user.delete');
+        Route::get('/user/get', [ManajemenUserController::class, 'getUsers'])->name('user.get');
     });

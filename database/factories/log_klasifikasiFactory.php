@@ -30,7 +30,7 @@ class log_klasifikasiFactory extends Factory
                 ],
             'keyakinan_model'=>$this->faker->randomFloat(2, 0.40, 0.99),
             'hasil_label'=>$this->faker->randomElement(['Healthy', 'BrownSpot', 'Hispa', 'LeafBlast']),
-            'created_at' => $this->faker->dateTimeBetween('-3 week', 'now')
+            'created_at' => $this->faker->dateTimeBetween('-104 week', 'now')
         ];
     }
 }

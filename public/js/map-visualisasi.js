@@ -128,11 +128,12 @@ function generateMap(data) {
     const containerLegenda = document.getElementById('legenda');
     containerLegenda.innerHTML = '';
     labels.forEach((label, i) => {
-        const hue = (i * 45) % 360;
+        const hue = ((2+i) * 45) % 360;
         containerLegenda.innerHTML += `
             <div class="legend-card">
                 <div class="kotak" style="background-color: hsl(${hue}, 70%, 60%)"></div>
                 <span>${label}</span>
+                <span>[${data[label].length}]</span>
             </div>`;
     });
 
@@ -150,7 +151,7 @@ function updateMapLayers(filterLabel) {
     labels.forEach((label, i) => {
         if (filterLabel !== 'all' && filterLabel !== label) return;
 
-        const hue = (i * 45) % 360;
+        const hue = ((2 + i) * 45) % 360;
         const color = `hsl(${hue}, 70%, 60%)`;
         
         currentRawData[label].forEach(item => {

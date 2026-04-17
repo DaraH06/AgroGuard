@@ -136,8 +136,9 @@
                     <h5 class="mb-0 fw-semibold">Aksi Cepat</h5>
                 </div>
                 <div class="card-body d-grid gap-3">
-                    <button id="export" class="btn btn-warning w-100 py-3 fw-semibold">
-                        <i class="bi bi-download me-2"></i> Export
+                    <button type="button" onclick="ExportTable(document.getElementById('bulanAwal'))"
+                    id="export" class="btn btn-warning w-100 py-3 fw-semibold">
+                        <i id="teks-export" class="bi bi-download me-2"></i>
                     </button>
                 </div>
             </div>
@@ -169,4 +170,13 @@
 
 @push('scripts')
 <script src="{{ asset('js/dashboard.js') }}"></script>
+<script>
+    function ExportTable(data){
+        const filename = `{{ date_format(now(), 'Ymd') }}-laporan bulan ${data.value}.xlsx`;
+
+        let url = "{{ route('admin.export', ['filename' => 'FILE']) }}";
+        url = url.replace('FILE', filename);
+        window.open(`${url}?month_year=${data.value}`, '_blank');
+    }
+</script>
 @endpush

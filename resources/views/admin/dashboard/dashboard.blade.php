@@ -7,18 +7,21 @@
         max-height: 300px;
         overflow-y: auto;
     }
-    
+
     table {
         width: 100%;
         border-collapse: collapse;
     }
+
     /* Styling khusus agar input month terlihat seperti tombol pill hijau */
     .date-pill {
-        background-color: #e6f7ef; /* Hijau muda */
+        background-color: #e6f7ef;
+        /* Hijau muda */
         border: none;
         border-radius: 50px;
         padding: 6px 15px;
-        color: #16a34a; /* Hijau tua */
+        color: #16a34a;
+        /* Hijau tua */
         font-weight: 600;
         font-size: 13px;
         outline: none;
@@ -43,16 +46,16 @@
 <div class="container-fluid px-0">
 
     <div class="d-flex justify-content-between align-items-end mb-4">
-        <h4 class="mb-0 fw-semibold" style="color: #2b5e3b;">Dashboard</h4>
-        
+        <h4 class="mb-0 fw-bold" style="color: #2b5e3b;">Dashboard</h4>
+
         <div class="d-flex align-items-center gap-3">
             <div class="text-end" style="align-content: center;">
                 <div class="date-label">Bulan Awal</div>
                 <input id="bulanAwal" type="month" class="date-pill" value="{{ date('Y-m') }}">
             </div>
-            
+
             <div class="align-self-end mb-1 text-muted fw-bold">-</div>
-            
+
             <div class="text-end">
                 <div class="date-label">Bulan Akhir</div>
                 <input id="bulanAkhir" type="month" class="date-pill" value="{{ date('Y-m') }}">
@@ -165,5 +168,5 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('js/dashboard.js') }}"></script>
+<script src="{{ asset('js/dashboard.js') }}"></script>
 @endpush

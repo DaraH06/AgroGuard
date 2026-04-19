@@ -16,7 +16,7 @@ Route::get('/login', function () {
 Route::controller(autentikasi::class)->group(function(){
     Route::post('login', 'login');
     
-    Route::get('/logout', 'logout');
+    Route::get('/logout', 'logout')->name('logout');
     Route::get('/forgot-password', function () {
         return view('auth.forgot-password');
     })->name('password.request');
@@ -49,16 +49,16 @@ Route::middleware(['auth'])->group(function (){
         Route::post('/penyakit/store', [crud_penyakit::class , 'store'])->name('penyakit.store');
         Route::put('/penyakit/update', [crud_penyakit::class , 'update'])->name('penyakit.update');
         Route::delete('/penyakit/delete', [crud_penyakit::class , 'destroy'])->name('penyakit.delete');
-    });
-    
-    //manajemen user
 
-    Route::prefix('user')->name('user')->group(function(){
-        Route::get('/manajemen-user', [ManajemenUserController::class, 'index'])->name('index');
-        Route::get('/manajemen-user/create', [ManajemenUserController::class, 'create'])->name('create');
-        Route::post('/user/store', [ManajemenUserController::class, 'store'])->name('store');
-        Route::delete('/user/delete', [ManajemenUserController::class, 'destroy'])->name('delete');
-        Route::get('/user/get', [ManajemenUserController::class, 'getUsers'])->name('get');
+        //manajemen user
+
+        Route::prefix('user')->name('user.')->group(function(){
+            Route::get('/manajemen-user', [ManajemenUserController::class, 'index'])->name('index');
+            Route::get('/manajemen-user/create', [ManajemenUserController::class, 'create'])->name('create');
+            Route::post('/user/store', [ManajemenUserController::class, 'store'])->name('store');
+            Route::delete('/user/delete', [ManajemenUserController::class, 'destroy'])->name('delete');
+            Route::get('/user/get', [ManajemenUserController::class, 'getUsers'])->name('get');
+        });
     });
 
     //api web

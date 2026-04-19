@@ -4,6 +4,7 @@ use App\Http\Controllers\autentikasi;
 use App\Http\Controllers\crud_penyakit;
 use App\Http\Controllers\dashboard;
 use App\Http\Controllers\ManajemenUserController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/login', function () {

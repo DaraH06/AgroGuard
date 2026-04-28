@@ -7,18 +7,21 @@
         max-height: 300px;
         overflow-y: auto;
     }
-    
+
     table {
         width: 100%;
         border-collapse: collapse;
     }
+
     /* Styling khusus agar input month terlihat seperti tombol pill hijau */
     .date-pill {
-        background-color: #e6f7ef; /* Hijau muda */
+        background-color: #e6f7ef;
+        /* Hijau muda */
         border: none;
         border-radius: 50px;
         padding: 6px 15px;
-        color: #16a34a; /* Hijau tua */
+        color: #16a34a;
+        /* Hijau tua */
         font-weight: 600;
         font-size: 13px;
         outline: none;
@@ -43,16 +46,16 @@
 <div class="container-fluid px-0">
 
     <div class="d-flex justify-content-between align-items-end mb-4">
-        <h4 class="mb-0 fw-semibold" style="color: #2b5e3b;">Dashboard</h4>
-        
+        <h4 class="mb-0 fw-bold" style="color: #2b5e3b;">Dashboard</h4>
+
         <div class="d-flex align-items-center gap-3">
             <div class="text-end" style="align-content: center;">
                 <div class="date-label">Bulan Awal</div>
                 <input id="bulanAwal" type="month" class="date-pill" value="{{ date('Y-m') }}">
             </div>
-            
+
             <div class="align-self-end mb-1 text-muted fw-bold">-</div>
-            
+
             <div class="text-end">
                 <div class="date-label">Bulan Akhir</div>
                 <input id="bulanAkhir" type="month" class="date-pill" value="{{ date('Y-m') }}">
@@ -133,8 +136,9 @@
                     <h5 class="mb-0 fw-semibold">Aksi Cepat</h5>
                 </div>
                 <div class="card-body d-grid gap-3">
-                    <button id="export" class="btn btn-warning w-100 py-3 fw-semibold">
-                        <i class="bi bi-download me-2"></i> Export
+                    <button type="button" onclick="ExportTable(document.getElementById('bulanAwal'))"
+                    id="export" class="btn btn-warning w-100 py-3 fw-semibold">
+                        <i id="teks-export" class="bi bi-download me-2"></i>
                     </button>
                 </div>
             </div>
@@ -165,5 +169,14 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('js/dashboard.js') }}"></script>
+<script src="{{ asset('js/dashboard.js') }}"></script>
+<script>
+    function ExportTable(data){
+        const filename = `{{ date_format(now(), 'Ymd') }}-laporan bulan ${data.value}.xlsx`;
+
+        let url = "{{ route('admin.export', ['filename' => 'FILE']) }}";
+        url = url.replace('FILE', filename);
+        window.open(`${url}?month_year=${data.value}`, '_blank');
+    }
+</script>
 @endpush

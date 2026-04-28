@@ -6,7 +6,7 @@
         {{-- Header --}}
         <div class="d-flex justify-content-between align-items-start mb-4">
             <div>
-                <h4 class="mb-1 fw-bold" style="color: #1a1a1a; font-size: 1.6rem;">Manajemen Penyakit</h4>
+                <h4 class="mb-1 fw-bold" style="color: #2b5e3b; font-size: 1.6rem;">Manajemen Penyakit</h4>
                 <p class="text-muted mb-0" style="font-size: 0.9rem;">Kelola katalog hama dan penyakit tanaman untuk
                     referensi sistem AI.</p>
             </div>
@@ -299,11 +299,13 @@
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label class="form-label fw-semibold" style="font-size: 0.875rem;">Nama Penyakit</label>
-                                <input name="nama_penyakit" type="text" class="form-control rounded-3" placeholder="Contoh: Hawar Daun Bakteri">
+                                <input name="nama_penyakit" type="text" class="form-control rounded-3"
+                                    placeholder="Contoh: Hawar Daun Bakteri">
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label fw-semibold" style="font-size: 0.875rem;">Nama Ilmiah</label>
-                                <input name="nama_ilmiah" type="text" class="form-control rounded-3" placeholder="Contoh: Xanthomonas oryzae">
+                                <input name="nama_ilmiah" type="text" class="form-control rounded-3"
+                                    placeholder="Contoh: Xanthomonas oryzae">
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label fw-semibold" style="font-size: 0.875rem;">Tanaman Inang</label>
@@ -340,6 +342,14 @@
                             <div class="col-md-12">
                                 <label class="form-label fw-semibold" style="font-size: 0.875rem;">Thumbnail
                                     Penyakit</label>
+                                <input type="file" class="form-control rounded-3" accept="image/*">
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label fw-semibold" style="font-size: 0.875rem;">Data set
+                                </label>
+                                <small class="text-muted d-block mb-2">
+                                    Format file: zip/csv yang berisi folder data training dan folder dataset
+                                </small>
                                 <input type="file" class="form-control rounded-3" accept="image/*">
                             </div>
                         </div>

@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function(){
     lapor_aktif = document.getElementById('laporan_aktif');
     tabel_elemen = document.getElementById('data_tabel');
 
+
     loadingView('Memuat....');
 
     const bulan = document.querySelectorAll('.date-pill');
@@ -43,6 +44,7 @@ function loadingView(x, z = true){
 function menjalankanAksi(){
     let bulanAwal = document.getElementById('bulanAwal');
     let bulanAkhir = document.getElementById('bulanAkhir');
+    document.getElementById('teks-export').textContent = ` Export ${bulanAwal.value}`;
 
     if(bulanAwal && bulanAkhir){
         let awal = bulanAwal.value;
@@ -73,8 +75,17 @@ function updateDashboard(awal, akhir){
     .catch(err => console.error(err));
 }
 
+function getListWarna(n){
+    let hasil = [];
+    for (let i = 0; i < n; i++) {
+        const hue = ((i + 1) * 45) % 360;
+        const color = `hsl(${hue}, 70%, 60%)`;
+        hasil[i] = color;
+    }
+    return hasil;
+}
+
 function masukkan_data(data){
-    console.log(data);
 
     ringkas_akurasi.textContent = data.ringkasan_akurasi;
     loka_terpantau.textContent = data.ringkasan_lokasi;
@@ -98,16 +109,23 @@ function masukkan_data(data){
         instance_ctx2.destroy();
     }
 
+    let keys = [
+        Object.keys(data.ringkasan_label), 
+        Object.keys(data.ringkasan_harian)];
+    let values = [
+        Object.values(data.ringkasan_label),
+        Object.values(data.ringkasan_harian)];
+
         // BAR CHART
     if (ctx1) {
-        new Chart(ctx1, {
+        instance_ctx1 = new Chart(ctx1, {
             type: 'bar',
             data: {
-                labels: Object.keys(data.ringkasan_label),
+                labels: keys[0],
                 datasets: [{
                     label: 'Jumlah Kasus',
-                    data: Object.values(data.ringkasan_label),
-                    backgroundColor: ['#2b5e3b','#4CAF50','#A5D6A7']
+                    data: values[0],
+                    backgroundColor: getListWarna(keys[0].length)
                 }]
             }
         });
@@ -115,13 +133,13 @@ function masukkan_data(data){
 
     // LINE CHART
     if (ctx2) {
-        new Chart(ctx2, {
+        instance_ctx2 = new Chart(ctx2, {
             type: 'line',
             data: {
-                labels: Object.keys(data.ringkasan_harian),
+                labels: keys[1],
                 datasets: [{
                     label: 'Jumlah Laporan',
-                    data: Object.values(data.ringkasan_harian),
+                    data: values[1],
                     borderColor: '#2b5e3b',
                     backgroundColor: 'rgba(43,94,59,0.2)',
                     tension: 0.4,

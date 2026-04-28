@@ -307,27 +307,6 @@
                                 <input name="nama_ilmiah" type="text" class="form-control rounded-3"
                                     placeholder="Contoh: Xanthomonas oryzae">
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label fw-semibold" style="font-size: 0.875rem;">Tanaman Inang</label>
-                                <select name="inang" class="form-select rounded-3">
-                                    <option value="">Pilih tanaman...</option>
-                                    <option>Padi</option>
-                                    <option>Jagung</option>
-                                    <option>Kedelai</option>
-                                    <option>Cabai</option>
-                                    <option>Tomat</option>
-                                    <option>Sayuran Daun</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label fw-semibold" style="font-size: 0.875rem;">Tingkat Bahaya</label>
-                                <select class="form-select rounded-3">
-                                    <option>Rendah</option>
-                                    <option>Sedang</option>
-                                    <option>Tinggi</option>
-                                    <option>Kritis</option>
-                                </select>
-                            </div>
                             <div class="col-md-12">
                                 <label class="form-label fw-semibold" style="font-size: 0.875rem;">Gejala Utama</label>
                                 <textarea class="form-control rounded-3" rows="2"

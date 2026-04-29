@@ -68,4 +68,11 @@ Route::middleware(['auth'])->group(function (){
         Route::post('dashboard', [dashboard::class , 'index']);
         Route::get('map', [dashboard::class , 'mapVisualisasi']);
     });
+
+    Route::prefix('testing')->name('test.')->group(function (){
+        Route::get('/', function(){
+            return view('tabel_api');
+        });
+        Route::get('users', [ManajemenUserController::class, 'getUsers']);
+    });
 });

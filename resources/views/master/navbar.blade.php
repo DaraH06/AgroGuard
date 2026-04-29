@@ -5,7 +5,7 @@
         <!-- Expert Info -->
         <div class="expert-info ms-auto">
             <div class="expert-details">
-                <div class="expert-name">Dr. Ahmad Faisal</div>
+                <div class="expert-name">{{ session()->get('email') }}</div>
                 <div class="expert-title">Ahli Tanaman Senior</div>
             </div>
             <div class="expert-avatar">

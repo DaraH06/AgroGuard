@@ -12,7 +12,7 @@ class FlutterImageController extends Controller
      * Upload gambar dari Flutter
      * Request: multipart/form-data dengan field 'image'
      */
-    public function upload(Request $request)
+    public function upload(Request $request, send_toFlask $FlaskService)
     {
         try {
             $request->validate([
@@ -25,6 +25,8 @@ class FlutterImageController extends Controller
             $fileSize = $file->getSize();
 
             $path = $file->store('uploads', 'public');
+
+            $FlaskService->Ekstraksigambar($path);
 
             $upload = FlutterImage::create([
                 'image_path' => $path,

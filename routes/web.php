@@ -14,6 +14,9 @@ Route::get('/gallery', function () {
     return view('gallery', ['uploads' => $data]);
 })->name('gallery');
 
+Route::get('', function (){
+    return redirect('login');
+});
 
 Route::get('/login', function () {
     if (Auth::check()) {

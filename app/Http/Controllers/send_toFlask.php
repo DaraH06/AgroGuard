@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
 class send_toFlask extends Controller
 {
-    function Ekstraksigambar(Request $req){
-        $path = $req->validate(['path'=> 'required|string']);
+    function Ekstraksigambar(string $name = "image.png"){
+        $path = storage_path("app/uploads/$name");
 
         $response = Http::post('http://localhost:5000/ekstrak', [
-            'path_foto'=> $path['path']
+            'path_foto'=> $name
         ]);
 
-        return response()->json($response->json());
+        return response()->json(['data' => $response->json()]);
     }
 }

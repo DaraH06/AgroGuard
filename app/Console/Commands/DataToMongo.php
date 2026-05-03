@@ -11,7 +11,7 @@ class DataToMongo extends Command
      *
      * @var string
      */
-    protected $signature = 'import:csv {filename}';
+    protected $signature = 'import:csv';
 
 
     /**
@@ -26,28 +26,32 @@ class DataToMongo extends Command
      */
     public function handle()
     {
-        $filename = $this->argument('filename');
-        $path = storage_path("app/archieves/reports/{$filename}");
+        $this->info('membersihkan data');
+        \App\Models\DataEkstraksi::truncate();
 
-        if (!file_exists($path)) {
-            $this->error("File tidak ditemukan di : {$path}");
-            return;
+        $filename = ['data_train.csv', 'data_validation.csv'];
+        foreach ($filename as $value) {
+            $path = storage_path("app/archieves/reports/{$value}");
+    
+            if (!file_exists($path)) {
+                $this->error("File tidak ditemukan di : {$path}");
+                return;
+            }
+    
+            $this->info("Memulai impor : {$value}");
+    
+            $file = fopen($path, 'r');
+            $header = fgetcsv($file);
+    
+            $count = 0;
+            while (($row = fgetcsv($file)) !== false) {
+                $data = array_combine($header, $row);
+                \App\Models\DataEkstraksi::create($data);
+                $count++;
+            }
+    
+            fclose($file);
+            $this->info("Selesai, $count data berhasil diimpor");
         }
-
-        $this->info("Memulai impor : {$filename}");
-
-        $file = fopen($path, 'r');
-        $header = fgetcsv($file);
-
-        $count = 0;
-        while (($row = fgetcsv($file)) !== false) {
-            $data = array_combine($header, $row);
-
-            \App\Models\DataEkstraksi::create($data);
-            $count++;
-        }
-
-        fclose($file);
-        $this->info("Selesai, $count data berhasil diimpor");
     }
 }

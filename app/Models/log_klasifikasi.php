@@ -1,0 +1,18 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use MongoDB\Laravel\Eloquent\Model;
+
+class log_klasifikasi extends Model
+{
+    const UPDATED_AT = null;
+    use HasFactory;
+    protected $collection = 'log_klasifikasi';
+    protected $casts = ['created_at'=> 'datetime:Y-m-d H-m-s'];
+    protected $guarded = [];
+    protected $hidden = ['_id'];
+
+
+}

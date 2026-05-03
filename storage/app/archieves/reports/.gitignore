@@ -1,3 +1,4 @@
 *
-!data train.csv
+!data_train.csv
+!data_validation.csv
 !.gitignore

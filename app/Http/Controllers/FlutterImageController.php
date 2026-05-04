@@ -8,11 +8,7 @@ use Illuminate\Http\Request;
 
 class FlutterImageController extends Controller
 {
-    /**
-     * Upload gambar dari Flutter
-     * Request: multipart/form-data dengan field 'image'
-     */
-    public function upload(Request $request, send_toFlask $FlaskService)
+       public function upload(Request $request, send_toFlask $FlaskService)
     {
         try {
             $request->validate([
@@ -26,7 +22,8 @@ class FlutterImageController extends Controller
 
             $path = $file->store('uploads', 'public');
 
-            $FlaskService->Ekstraksigambar($path);
+            // Call Flask service and capture extraction result
+            $flaskResult = $FlaskService->Ekstraksigambar($path);
 
             $upload = FlutterImage::create([
                 'image_path' => $path,
@@ -48,6 +45,8 @@ class FlutterImageController extends Controller
                     'file_size' => $upload->file_size,
                     'uploaded_at' => $upload->uploaded_at,
                 ],
+                // Sertakan hasil ekstraksi dari Flask (jika ada)
+                'extraction' => $flaskResult ?? null,
             ], 201);
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([
@@ -64,9 +63,6 @@ class FlutterImageController extends Controller
         }
     }
 
-    /**
-     * Ambil semua data upload
-     */
     public function index()
     {
         try {

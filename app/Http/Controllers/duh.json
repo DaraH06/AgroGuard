@@ -1,0 +1,26 @@
+{
+    "data": {
+        "hasil": "healthy",
+        "tingkat_keyakinan": [
+            {
+                "bacterial_leaf_blight": "0.00%"
+            },
+            {
+                "brown_spot": "0.00%"
+            },
+            {
+                "healthy": "60.00%"
+            },
+            {
+                "leaf_blast": "40.00%"
+            },
+            {
+                "leaf_scald": "0.00%"
+            },
+            {
+                "narrow_brown_spot": "0.00%"
+            }
+        ]
+    },
+    "success": true
+}

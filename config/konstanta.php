@@ -16,8 +16,10 @@ return [
         12 => 'Desember'
     ],
     'daerah' => [
-        'Jember' => ['Ajung', 'Kaliwates', 'Sumbersari', 'Sukorambi'],
-        'Situbondo' => ['Situbondo', 'Arjasa', 'Besuki', 'Panarukan'],
-        'Lumajang' => ['Sukodono', 'Kedungjajang', 'Banyuputih', 'Jatiroto']
+        'Jember' => ['Patrang', 'Kaliwates', 'Sumbersari'],
+        'Situbondo' => ['Situbondo', 'Besuki', 'Panarukan'],
+        'Lumajang' => ['Sukodono', 'Kedungjajang', 'Jatiroto'],
+        'Bondowoso' => ['Tamanan', 'Ijen', 'Wonosari'],
+        'Banyuwangi' => ['Genteng', 'Banyuwangi', 'Gambiran']
     ]
 ];

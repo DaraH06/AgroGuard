@@ -57,10 +57,10 @@ class dashboard extends Controller
 
         $status = filled($dataMentah);
 
-        if(!$status)return response()->json(['status'=>false, 'data'=>null]);
+        if(!$status)return response()->json(['success'=>false, 'data'=>null]);
 
         return response()->json([
-            'status'=>$status, 'data'=> [
+            'success'=>$status, 'data'=> [
                 'data_tabel'=> $dataMentah->sortByDesc('created_at')->take(20)->values(),
                 'total'=> $this->getTotalLaporan($dataMentah),
                 'ringkasan_lokasi' => $this->getLokasiTerpantau($dataMentah),
@@ -85,7 +85,7 @@ class dashboard extends Controller
             });
         
         return response()->json([
-            'status'=>true, 'data'=>[
+            'success'=>true, 'data'=>[
                 'visual_map' => $statistikLabel
             ]
         ]);

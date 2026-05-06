@@ -51,7 +51,7 @@ function getDataVisualisasi(tahun) {
         headers: { 'Accept': 'application/json' }
     }).then(response => response.json())
     .then(data => {
-        if (data.status) {
+        if (data.success) {
             currentRawData = data.data.visual_map;
             generateMap(currentRawData);
         } else {

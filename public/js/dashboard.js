@@ -69,7 +69,7 @@ function updateDashboard(awal, akhir){
         },
         body: JSON.stringify(payload)
     }).then(response => response.json())
-    .then(data => data.status ? masukkan_data(data.data) 
+    .then(data => data.success ? masukkan_data(data.data) 
     : data.data ==null ? 
     loadingView('Data di rentang bulan ini tidak ditemukan') : loadingView(''))
     .catch(err => console.error(err));

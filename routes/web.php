@@ -4,8 +4,19 @@ use App\Http\Controllers\autentikasi;
 use App\Http\Controllers\crud_penyakit;
 use App\Http\Controllers\dashboard;
 use App\Http\Controllers\ManajemenUserController;
+use App\Models\FlutterImage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
+// Fase 3 — Tampilkan JSON raw data upload dari Flutter (tanpa auth)
+Route::get('/gallery', function () {
+    $data = FlutterImage::latest('uploaded_at')->get();
+    return view('gallery', ['uploads' => $data]);
+})->name('gallery');
+
+Route::get('', function (){
+    return redirect('login');
+});
 
 Route::get('/login', function () {
     if (Auth::check()) {
@@ -67,5 +78,12 @@ Route::middleware(['auth'])->group(function (){
     Route::prefix('api_admin')->name('api_admin.')->group(function () {
         Route::post('dashboard', [dashboard::class , 'index']);
         Route::get('map', [dashboard::class , 'mapVisualisasi']);
+    });
+
+    Route::prefix('testing')->name('test.')->group(function (){
+        Route::get('/', function(){
+            return view('tabel_api');
+        });
+        Route::get('users', [ManajemenUserController::class, 'getUsers']);
     });
 });

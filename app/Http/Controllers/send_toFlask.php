@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\penyakit;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 
@@ -31,7 +32,9 @@ class send_toFlask extends Controller
             return $cleaned->json();
         }
 
-        return $this->getSolusi($cleaned);
+        return tap($this->getSolusi($cleaned['data']), function ($x){
+            // Log::debug($x);
+        });
     }
 
     private function cleaningResponse($response){
@@ -61,6 +64,17 @@ class send_toFlask extends Controller
     }
 
     private function getSolusi($data){
-        
+        $nama = trim($data['hasil']);
+        $solusi = penyakit::where('nama_penyakit', $nama)
+        ->select(['nama_penyakit', 'penanganan', 'penanggulangan'])
+        ->first();
+
+        Log::info($solusi);
+        if($solusi) unset($solusi->_id);
+
+        return [
+            'success'=>true,
+            'hasil'=>$solusi,
+            'tingkat keyakinan' => $data['tingkat_keyakinan']];
     }
 }

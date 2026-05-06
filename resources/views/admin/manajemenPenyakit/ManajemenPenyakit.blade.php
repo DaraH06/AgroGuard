@@ -47,7 +47,8 @@
         <div class="card border-0 shadow-sm rounded-4">
             <div class="card-body p-0">
                 <div class="table-responsive">
-                    <table class="table align-middle mb-0 text-center" style="border-collapse: separate; border-spacing: 0;">
+                    <table class="table align-middle mb-0 text-center"
+                        style="border-collapse: separate; border-spacing: 0;">
                         <thead>
                             <tr style="border-bottom: 1px solid #f0f0f0;">
                                 <th class="px-4 py-3 text-uppercase text-muted fw-semibold"
@@ -72,12 +73,9 @@
                                 <td class="px-3 py-3">
                                     <button type="button"
                                         class="btn btn-link p-0 fw-semibold disease-detail-trigger text-decoration-none"
-                                        style="color: #1a1a1a; font-size: 0.95rem;"
-                                        data-bs-toggle="modal" data-bs-target="#modalDetailPenyakit"
-                                        data-nama="Hawar Daun Bakteri"
-                                        data-ilmiah="Xanthomonas oryzae"
-                                        data-inang="Padi"
-                                        data-bahaya="Tinggi"
+                                        style="color: #1a1a1a; font-size: 0.95rem;" data-bs-toggle="modal"
+                                        data-bs-target="#modalDetailPenyakit" data-nama="Hawar Daun Bakteri"
+                                        data-ilmiah="Xanthomonas oryzae" data-inang="Padi" data-bahaya="Tinggi"
                                         data-pencegahan="Gunakan benih sehat, lakukan sanitasi lahan, dan rotasi tanaman secara rutin."
                                         data-penanganan="Semprotkan bakterisida tembaga sesuai dosis anjuran dan musnahkan bagian tanaman yang terinfeksi."
                                         data-thumbnail="{{ asset('images/hawar-daun.jpg') }}">
@@ -112,12 +110,9 @@
                                 <td class="px-3 py-3">
                                     <button type="button"
                                         class="btn btn-link p-0 fw-semibold disease-detail-trigger text-decoration-none"
-                                        style="color: #1a1a1a; font-size: 0.95rem;"
-                                        data-bs-toggle="modal" data-bs-target="#modalDetailPenyakit"
-                                        data-nama="Ulat Grayak"
-                                        data-ilmiah="Spodoptera litura"
-                                        data-inang="Jagung, Kedelai"
-                                        data-bahaya="Sedang"
+                                        style="color: #1a1a1a; font-size: 0.95rem;" data-bs-toggle="modal"
+                                        data-bs-target="#modalDetailPenyakit" data-nama="Ulat Grayak"
+                                        data-ilmiah="Spodoptera litura" data-inang="Jagung, Kedelai" data-bahaya="Sedang"
                                         data-pencegahan="Lakukan monitoring rutin, bersihkan gulma, dan pasang perangkap hama."
                                         data-penanganan="Gunakan insektisida sesuai ambang kendali dan ikuti rekomendasi teknis."
                                         data-thumbnail="{{ asset('images/ulat-grayak.jpg') }}">
@@ -151,12 +146,9 @@
                                 <td class="px-3 py-3">
                                     <button type="button"
                                         class="btn btn-link p-0 fw-semibold disease-detail-trigger text-decoration-none"
-                                        style="color: #1a1a1a; font-size: 0.95rem;"
-                                        data-bs-toggle="modal" data-bs-target="#modalDetailPenyakit"
-                                        data-nama="Wereng Cokelat"
-                                        data-ilmiah="Nilaparvata lugens"
-                                        data-inang="Padi"
-                                        data-bahaya="Kritis"
+                                        style="color: #1a1a1a; font-size: 0.95rem;" data-bs-toggle="modal"
+                                        data-bs-target="#modalDetailPenyakit" data-nama="Wereng Cokelat"
+                                        data-ilmiah="Nilaparvata lugens" data-inang="Padi" data-bahaya="Kritis"
                                         data-pencegahan="Jaga kebersihan lahan, hindari pemupukan nitrogen berlebih, dan gunakan varietas tahan."
                                         data-penanganan="Aplikasikan insektisida selektif secara tepat dan lakukan pengendalian terpadu."
                                         data-thumbnail="{{ asset('images/wereng-cokelat.jpg') }}">
@@ -191,12 +183,9 @@
                                 <td class="px-3 py-3">
                                     <button type="button"
                                         class="btn btn-link p-0 fw-semibold disease-detail-trigger text-decoration-none"
-                                        style="color: #1a1a1a; font-size: 0.95rem;"
-                                        data-bs-toggle="modal" data-bs-target="#modalDetailPenyakit"
-                                        data-nama="Antraknosa"
-                                        data-ilmiah="Colletotrichum spp."
-                                        data-inang="Cabai, Tomat"
-                                        data-bahaya="Sedang"
+                                        style="color: #1a1a1a; font-size: 0.95rem;" data-bs-toggle="modal"
+                                        data-bs-target="#modalDetailPenyakit" data-nama="Antraknosa"
+                                        data-ilmiah="Colletotrichum spp." data-inang="Cabai, Tomat" data-bahaya="Sedang"
                                         data-pencegahan="Pangkas bagian tanaman yang sakit, jaga sirkulasi udara, dan hindari kelembapan berlebih."
                                         data-penanganan="Gunakan fungisida yang sesuai dan lakukan sanitasi kebun secara rutin."
                                         data-thumbnail="{{ asset('images/antraknosa.jpg') }}">
@@ -230,12 +219,9 @@
                                 <td class="px-3 py-3">
                                     <button type="button"
                                         class="btn btn-link p-0 fw-semibold disease-detail-trigger text-decoration-none"
-                                        style="color: #1a1a1a; font-size: 0.95rem;"
-                                        data-bs-toggle="modal" data-bs-target="#modalDetailPenyakit"
-                                        data-nama="Bulai Jagung"
-                                        data-ilmiah="Peronosclerospora maydis"
-                                        data-inang="Jagung"
-                                        data-bahaya="Tinggi"
+                                        style="color: #1a1a1a; font-size: 0.95rem;" data-bs-toggle="modal"
+                                        data-bs-target="#modalDetailPenyakit" data-nama="Bulai Jagung"
+                                        data-ilmiah="Peronosclerospora maydis" data-inang="Jagung" data-bahaya="Tinggi"
                                         data-pencegahan="Gunakan benih sehat, tanam varietas tahan, dan hindari kondisi lembap berlebih."
                                         data-penanganan="Musnahkan tanaman terinfeksi dan lakukan pengendalian sesuai rekomendasi."
                                         data-thumbnail="{{ asset('images/bulai-jagung.jpg') }}">
@@ -320,14 +306,15 @@
                                     placeholder="Contoh: Xanthomonas oryzae">
                             </div>
                             <div class="col-md-12">
-                                <label class="form-label fw-semibold" style="font-size: 0.875rem;">Penegahan</label>
-                                <textarea class="form-control rounded-3" rows="2"
-                                    placeholder="Pencagahan  dapat dilakukan dengan "></textarea>
+                                <label class="form-label fw-semibold" style="font-size: 0.875rem;">Pencegahan</label>
+                                <textarea name="pencegahan" id="tinymce-pencegahan" class="form-control rounded-3" rows="2"
+                                    placeholder="Pencegahan dapat dilakukan dengan"></textarea>
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label fw-semibold" style="font-size: 0.875rem;">Rekomendasi
                                     Penanganan</label>
-                                <textarea class="form-control rounded-3" rows="2"
+                                <textarea name="rekomendasi_penanganan" id="tinymce-penanganan"
+                                    class="form-control rounded-3" rows="2"
                                     placeholder="Contoh: Fungisida tembaga, sanitasi lahan, varietas tahan"></textarea>
                             </div>
                             <div class="col-md-12">
@@ -408,8 +395,69 @@
     </div>
 @endsection
 
+@push('style')
+    {{-- Fix TinyMCE dialogs appearing behind Bootstrap modal --}}
+    <style>
+        .tox-tinymce-aux {
+            z-index: 1060 !important;
+        }
+    </style>
+@endpush
+
 @push('scripts')
+    {{-- TinyMCE Local --}}
+    <script src="{{ asset('assets/tinymce/tinymce/js/tinymce/tinymce.min.js') }}"></script>
+
     <script>
+        // ── TinyMCE config for modal ──
+        const tinymceConfig = {
+            license_key: 'gpl',
+            menubar: false,
+            branding: false,
+            promotion: false,
+            statusbar: false,
+            height: 200,
+            plugins: 'advlist autolink lists link image code help',
+            toolbar: 'bold italic underline | bullist numlist | link | removeformat',
+            content_style: `
+                                        body {
+                                            font-family: 'Segoe UI', Roboto, sans-serif;
+                                            font-size: 14px;
+                                            color: #333;
+                                            padding: 4px 8px;
+                                        }
+                                        `,
+            setup: function (editor) {
+                editor.on('change keyup', function () {
+                    editor.save(); // sync content back to the textarea
+                });
+            }
+        };
+
+        // Initialize TinyMCE when modal opens, destroy when it closes
+        const modalPenyakit = document.getElementById('modalPenyakit');
+
+        modalPenyakit.addEventListener('shown.bs.modal', function () {
+            // Only init if not already initialized
+            if (!tinymce.get('tinymce-pencegahan')) {
+                tinymce.init({ ...tinymceConfig, selector: '#tinymce-pencegahan' });
+            }
+            if (!tinymce.get('tinymce-penanganan')) {
+                tinymce.init({ ...tinymceConfig, selector: '#tinymce-penanganan' });
+            }
+        });
+
+        modalPenyakit.addEventListener('hidden.bs.modal', function () {
+            // Destroy editors to prevent stale instances
+            if (tinymce.get('tinymce-pencegahan')) {
+                tinymce.get('tinymce-pencegahan').destroy();
+            }
+            if (tinymce.get('tinymce-penanganan')) {
+                tinymce.get('tinymce-penanganan').destroy();
+            }
+        });
+
+        // ── Detail modal logic ──
         document.querySelectorAll('.disease-detail-trigger').forEach((trigger) => {
             trigger.addEventListener('click', () => {
                 const nama = trigger.dataset.nama || '';

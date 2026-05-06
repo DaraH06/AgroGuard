@@ -33,7 +33,7 @@ class send_toFlask extends Controller
         }
 
         return tap($this->getSolusi($cleaned['data']), function ($x){
-            // Log::debug($x);
+            Log::debug($x);
         });
     }
 
@@ -69,7 +69,7 @@ class send_toFlask extends Controller
         ->select(['nama_penyakit', 'penanganan', 'penanggulangan'])
         ->first();
 
-        Log::info($solusi);
+        // Log::info($solusi);
         if($solusi) unset($solusi->_id);
 
         return [

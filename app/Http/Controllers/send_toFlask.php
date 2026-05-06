@@ -20,8 +20,10 @@ class send_toFlask extends Controller
             }
         }
 
-        $response = Http::post('http://localhost:5000/ekstrak', [
-            'path_foto'=> $path
+        $response = Http::withHeaders([
+            'X-API-KEY' => config('services.flask.key')])
+            ->post(config('services.flask.uri').'ekstrak',[
+                'path_foto'=> $path
         ]);
 
         $cleaned = $this->cleaningResponse(
@@ -33,7 +35,7 @@ class send_toFlask extends Controller
         }
 
         return tap($this->getSolusi($cleaned['data']), function ($x){
-            // Log::debug($x);
+            Log::debug($x);
         });
     }
 
@@ -66,15 +68,16 @@ class send_toFlask extends Controller
     private function getSolusi($data){
         $nama = trim($data['hasil']);
         $solusi = penyakit::where('nama_penyakit', $nama)
+        ->project(['_id'=>0])
         ->select(['nama_penyakit', 'penanganan', 'penanggulangan'])
         ->first();
 
-        Log::info($solusi);
+        // Log::info($solusi);
         if($solusi) unset($solusi->_id);
 
         return [
             'success'=>true,
-            'hasil'=>$solusi,
+            'hasil'=>$solusi ? $solusi->toArray() : null,
             'tingkat keyakinan' => $data['tingkat_keyakinan']];
     }
 }

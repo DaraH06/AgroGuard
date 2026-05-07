@@ -31,7 +31,7 @@ class send_toFlask extends Controller
         
         if ($cleaned['success'] == false){
             Log::error($cleaned);
-            return $cleaned->json();
+            return $cleaned;
         }
 
         return tap($this->getSolusi($cleaned['data']), function ($x){

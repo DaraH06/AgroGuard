@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'flask' =>[
+        'key' => env('FLASK_KEY'),
+        'uri' => 'http://'. env('FLASK_HOST') . ':' . env('FLASK_PORT') . '/'
+    ]
+
 ];

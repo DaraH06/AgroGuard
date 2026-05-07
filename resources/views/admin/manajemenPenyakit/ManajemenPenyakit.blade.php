@@ -54,8 +54,6 @@
                                     style="font-size: 0.72rem; letter-spacing: 0.07em; width: 100px;">Thumbnail</th>
                                 <th class="px-3 py-3 text-uppercase text-muted fw-semibold"
                                     style="font-size: 0.72rem; letter-spacing: 0.07em;">Nama Penyakit</th>
-                                <th class="px-3 py-3 text-uppercase text-muted fw-semibold"
-                                    style="font-size: 0.72rem; letter-spacing: 0.07em;">Tingkat Bahaya</th>
                                 <th class="px-4 py-3 text-uppercase text-muted fw-semibold"
                                     style="font-size: 0.72rem; letter-spacing: 0.07em;">Aksi</th>
                             </tr>
@@ -81,13 +79,8 @@
                                         data-pencegahan="Gunakan benih sehat, lakukan sanitasi lahan, dan rotasi tanaman secara rutin."
                                         data-penanganan="Semprotkan bakterisida tembaga sesuai dosis anjuran dan musnahkan bagian tanaman yang terinfeksi."
                                         data-thumbnail="{{ asset('images/hawar-daun.jpg') }}">
-                                        Hawar Daun
-                                        Bakteri
+                                        Hawar Daun Bakteri
                                     </button>
-                                </td>
-                                <td class="px-3 py-3">
-                                    <span class="badge rounded-pill px-3 py-2 fw-semibold"
-                                        style="background-color: #fff3cd; color: #b45309; font-size: 0.78rem; letter-spacing: 0.03em;">TINGGI</span>
                                 </td>
                                 <td class="px-4 py-3">
                                     <div class="d-flex justify-content-center gap-2">
@@ -124,10 +117,6 @@
                                         Ulat Grayak
                                     </button>
                                 </td>
-                                <td class="px-3 py-3">
-                                    <span class="badge rounded-pill px-3 py-2 fw-semibold"
-                                        style="background-color: #e8f5e9; color: #388e3c; font-size: 0.78rem; letter-spacing: 0.03em;">SEDANG</span>
-                                </td>
                                 <td class="px-4 py-3">
                                     <div class="d-flex justify-content-center gap-2">
                                         <button class="btn btn-sm btn-outline-success rounded-3"
@@ -160,13 +149,8 @@
                                         data-pencegahan="Jaga kebersihan lahan, hindari pemupukan nitrogen berlebih, dan gunakan varietas tahan."
                                         data-penanganan="Aplikasikan insektisida selektif secara tepat dan lakukan pengendalian terpadu."
                                         data-thumbnail="{{ asset('images/wereng-cokelat.jpg') }}">
-                                        Wereng
-                                        Cokelat
+                                        Wereng Cokelat
                                     </button>
-                                </td>
-                                <td class="px-3 py-3">
-                                    <span class="badge rounded-pill px-3 py-2 fw-semibold"
-                                        style="background-color: #fde8e8; color: #c0392b; font-size: 0.78rem; letter-spacing: 0.03em;">KRITIS</span>
                                 </td>
                                 <td class="px-4 py-3">
                                     <div class="d-flex justify-content-center gap-2">
@@ -203,10 +187,6 @@
                                         Antraknosa
                                     </button>
                                 </td>
-                                <td class="px-3 py-3">
-                                    <span class="badge rounded-pill px-3 py-2 fw-semibold"
-                                        style="background-color: #e8f5e9; color: #388e3c; font-size: 0.78rem; letter-spacing: 0.03em;">SEDANG</span>
-                                </td>
                                 <td class="px-4 py-3">
                                     <div class="d-flex justify-content-center gap-2">
                                         <button class="btn btn-sm btn-outline-success rounded-3"
@@ -220,7 +200,7 @@
                             </tr>
 
                             {{-- Row 5 --}}
-                            <tr>
+                            <tr style="border-bottom: 1px solid #f5f5f5;">
                                 <td class="px-4 py-3">
                                     <img src="{{ asset('images/bulai-jagung.jpg') }}" alt="Bulai Jagung"
                                         class="rounded-3 object-fit-cover"
@@ -239,13 +219,8 @@
                                         data-pencegahan="Gunakan benih sehat, tanam varietas tahan, dan hindari kondisi lembap berlebih."
                                         data-penanganan="Musnahkan tanaman terinfeksi dan lakukan pengendalian sesuai rekomendasi."
                                         data-thumbnail="{{ asset('images/bulai-jagung.jpg') }}">
-                                        Bulai
-                                        Jagung
+                                        Bulai Jagung
                                     </button>
-                                </td>
-                                <td class="px-3 py-3">
-                                    <span class="badge rounded-pill px-3 py-2 fw-semibold"
-                                        style="background-color: #fff3cd; color: #b45309; font-size: 0.78rem; letter-spacing: 0.03em;">TINGGI</span>
                                 </td>
                                 <td class="px-4 py-3">
                                     <div class="d-flex justify-content-center gap-2">

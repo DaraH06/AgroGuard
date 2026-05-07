@@ -1,182 +1,173 @@
 @extends('master.header')
 
+@push('style')
+    @vite('resources/css/dashboard.css')
+@endpush
+
 @section('content')
-<style>
-    .tabel-kontainer {
-        width: 100%;
-        max-height: 300px;
-        overflow-y: auto;
-    }
+    <div class="container-fluid px-0">
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    /* Styling khusus agar input month terlihat seperti tombol pill hijau */
-    .date-pill {
-        background-color: #e6f7ef;
-        /* Hijau muda */
-        border: none;
-        border-radius: 50px;
-        padding: 6px 15px;
-        color: #16a34a;
-        /* Hijau tua */
-        font-weight: 600;
-        font-size: 13px;
-        outline: none;
-        cursor: pointer;
-        font-family: 'Poppins', sans-serif;
-    }
-
-    .date-pill::-webkit-calendar-picker-indicator {
-        cursor: pointer;
-        filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(114deg) brightness(91%) contrast(85%);
-    }
-
-    .date-label {
-        font-size: 11px;
-        color: #94a3b8;
-        font-weight: 600;
-        text-transform: uppercase;
-        margin-bottom: 2px;
-    }
-</style>
-
-<div class="container-fluid px-0">
-
-    <div class="d-flex justify-content-between align-items-end mb-4">
-        <h4 class="mb-0 fw-bold" style="color: #2b5e3b;">Dashboard</h4>
-
-        <div class="d-flex align-items-center gap-3">
-            <div class="text-end" style="align-content: center;">
-                <div class="date-label">Bulan Awal</div>
-                <input id="bulanAwal" type="month" class="date-pill" value="{{ date('Y-m') }}">
+        {{-- Header --}}
+        <div class="dashboard-header">
+            <div>
+                <h4 class="dashboard-title">Dashboard</h4>
+                <p class="dashboard-subtitle">Selamat datang kembali! Berikut ringkasan laporan terbaru.</p>
             </div>
 
-            <div class="align-self-end mb-1 text-muted fw-bold">-</div>
-
-            <div class="text-end">
-                <div class="date-label">Bulan Akhir</div>
-                <input id="bulanAkhir" type="month" class="date-pill" value="{{ date('Y-m') }}">
+            <div class="date-filter-group">
+                <div>
+                    <div class="date-label">Bulan Awal</div>
+                    <input id="bulanAwal" type="month" class="date-pill" value="{{ date('Y-m') }}">
+                </div>
+                <span class="date-separator">—</span>
+                <div>
+                    <div class="date-label">Bulan Akhir</div>
+                    <input id="bulanAkhir" type="month" class="date-pill" value="{{ date('Y-m') }}">
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="row g-4 mb-4">
-        <div class="col-md-4">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body d-flex align-items-center">
-                    <div class="bg-success bg-opacity-10 p-3 rounded-circle">
-                        <i class="bi bi-file-medical text-success" style="font-size: 1.8rem;"></i>
+        {{-- Summary Cards --}}
+        <div class="row g-4 mb-4">
+            <div class="col-md-4">
+                <div class="card stat-card stat-akurasi shadow-sm h-100">
+                    <div class="card-body d-flex align-items-center gap-3">
+                        <div class="stat-icon icon-akurasi">
+                            <i class="bi bi-bullseye"></i>
+                        </div>
+                        <div>
+                            <div class="stat-label">Rata-rata Akurasi</div>
+                            <div id="ringkasan_akurasi" class="stat-value">****</div>
+                        </div>
                     </div>
-                    <div class="ms-3">
-                        <h6 class="text-muted mb-1">Rata-rata Akurasi</h6>
-                        <h3 id="ringkasan_akurasi" class="mb-0 fw-bold">****</h3>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card stat-card stat-lokasi shadow-sm h-100">
+                    <div class="card-body d-flex align-items-center gap-3">
+                        <div class="stat-icon icon-lokasi">
+                            <i class="bi bi-geo-alt-fill"></i>
+                        </div>
+                        <div>
+                            <div class="stat-label">Lokasi Terpantau</div>
+                            <div id="lokasi_terpantau" class="stat-value">****</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card stat-card stat-laporan shadow-sm h-100">
+                    <div class="card-body d-flex align-items-center gap-3">
+                        <div class="stat-icon icon-laporan">
+                            <i class="bi bi-clipboard-data-fill"></i>
+                        </div>
+                        <div>
+                            <div class="stat-label">Laporan Aktif</div>
+                            <div id="laporan_aktif" class="stat-value">****</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-4">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body d-flex align-items-center">
-                    <div class="bg-info bg-opacity-10 p-3 rounded-circle">
-                        <i class="bi bi-map text-info" style="font-size: 1.8rem;"></i>
+        {{-- Table & Actions --}}
+        <div class="row g-4 mb-4">
+            <div class="col-lg-8">
+                <div class="card table-card shadow-sm">
+                    <div class="card-header border-0">
+                        <h5 class="mb-0">
+                            <i class="bi bi-table"></i>
+                            Laporan Tabular 20 Teratas
+                        </h5>
                     </div>
-                    <div class="ms-3">
-                        <h6 class="text-muted mb-1">Lokasi Terpantau</h6>
-                        <h3 id="lokasi_terpantau" class="mb-0 fw-bold">****</h3>
+                    <div class="card-body tabel-kontainer p-0">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Tanggal</th>
+                                    <th>Lokasi</th>
+                                    <th>Jenis Penyakit</th>
+                                    <th>Keyakinan</th>
+                                </tr>
+                            </thead>
+                            <tbody id="data_tabel">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card action-card shadow-sm h-100">
+                    <div class="card-header border-0">
+                        <h5 class="mb-0">
+                            <i class="bi bi-lightning-charge-fill" style="color: #f59e0b;"></i>
+                            Aksi Cepat
+                        </h5>
+                    </div>
+                    <div class="card-body d-grid gap-3">
+                        <button type="button" onclick="ExportTable(document.getElementById('bulanAwal'))" id="export"
+                            class="btn btn-export w-100">
+                            <i class="bi bi-file-earmark-arrow-down"></i>
+                            <span id="teks-export"></span>
+                        </button>
+
+                        <div class="info-box">
+                            <p><i class="bi bi-info-circle-fill"></i> Export data laporan dalam format Excel (.xlsx) sesuai
+                                rentang bulan yang dipilih.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-4">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body d-flex align-items-center">
-                    <div class="bg-warning bg-opacity-10 p-3 rounded-circle">
-                        <i class="bi bi-exclamation-triangle text-warning" style="font-size: 1.8rem;"></i>
+        {{-- Charts --}}
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card chart-card shadow-sm">
+                    <div class="card-body">
+                        <div class="chart-title">
+                            <i class="bi bi-bar-chart-fill" style="color: #8b5cf6;"></i>
+                            Statistik Jenis Penyakit
+                        </div>
+                        <div class="chart-subtitle">Distribusi kasus berdasarkan jenis penyakit</div>
+                        <div class="loading"></div>
+                        <div class="chart-wrapper">
+                            <canvas id="penyakitChart"></canvas>
+                        </div>
                     </div>
-                    <div class="ms-3">
-                        <h6 class="text-muted mb-1">Laporan Aktif</h6>
-                        <h3 id="laporan_aktif" class="mb-0 fw-bold">****</h3>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card chart-card shadow-sm">
+                    <div class="card-body">
+                        <div class="chart-title">
+                            <i class="bi bi-graph-up" style="color: #2b5e3b;"></i>
+                            Laporan per Hari
+                        </div>
+                        <div class="chart-subtitle">Tren jumlah laporan harian dalam periode terpilih</div>
+                        <div class="loading"></div>
+                        <div class="chart-wrapper">
+                            <canvas id="laporanChart"></canvas>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row g-4 mb-4">
-        <div class="col-lg-8">
-            <div class="card border-0 shadow-sm">
-                <div class="card-header bg-white border-0 py-3">
-                    <h5 style="text-align: center;" class="mb-0 fw-semibold">Laporan Tabular 20 Teratas</h5>
-                </div>
-                <div style="overflow-y: scroll;" class="card-body tabel-kontainer">
-                    <table class="table table-hover align-middle">
-                        <thead class="table-light">
-                            <tr>
-                                <th>Tanggal</th>
-                                <th>Lokasi</th>
-                                <th>Jenis Penyakit</th>
-                                <th>Keyakinan</th>
-                            </tr>
-                        </thead>
-                        <tbody id="data_tabel">
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-4">
-            <div class="card border-0 shadow-sm">
-                <div class="card-header bg-white border-0 py-3">
-                    <h5 class="mb-0 fw-semibold">Aksi Cepat</h5>
-                </div>
-                <div class="card-body d-grid gap-3">
-                    <button type="button" onclick="ExportTable(document.getElementById('bulanAwal'))"
-                    id="export" class="btn btn-warning w-100 py-3 fw-semibold">
-                        <i id="teks-export" class="bi bi-download me-2"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row g-4">
-        <div class="col-md-6">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h6>Statistik Jenis Penyakit</h6>
-                    <div class="loading"></div>
-                    <canvas id="penyakitChart" style="height:300px;"></canvas>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h6>Laporan per Hari</h6>
-                    <div class="loading"></div>
-                    <canvas id="laporanChart" style="height:300px;"></canvas>
                 </div>
             </div>
         </div>
     </div>
-</div>
 @endsection
 
 @push('scripts')
-<script src="{{ asset('js/dashboard.js') }}"></script>
-<script>
-    function ExportTable(data){
-        const filename = `{{ date_format(now(), 'Ymd') }}-laporan bulan ${data.value}.xlsx`;
+    @vite('resources/js/dashboard.js')
+    <script>
+        function ExportTable(data) {
+            const filename = `{{ date_format(now(), 'Ymd') }}-laporan bulan ${data.value}.xlsx`;
 
-        let url = "{{ route('admin.export', ['filename' => 'FILE']) }}";
-        url = url.replace('FILE', filename);
-        window.open(`${url}?month_year=${data.value}`, '_blank');
-    }
-</script>
+            let url = "{{ route('admin.export', ['filename' => 'FILE']) }}";
+            url = url.replace('FILE', filename);
+            window.open(`${url}?month_year=${data.value}`, '_blank');
+        }
+    </script>
 @endpush

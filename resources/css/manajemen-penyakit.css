@@ -1,0 +1,596 @@
+/* =============================================
+   Manajemen Penyakit - AgroGuard Premium Design
+   Color Palette synced with Dashboard
+   ============================================= */
+
+/* ---- Animations ---- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ---- Page Header ---- */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 28px;
+    animation: fadeInUp 0.5s ease;
+}
+
+.page-title {
+    color: #2b5e3b;
+    font-weight: 800;
+    font-size: 1.75rem;
+    letter-spacing: -0.5px;
+    position: relative;
+    margin-bottom: 4px;
+}
+
+.page-title::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 4px;
+    background: linear-gradient(90deg, #2b5e3b, #4ade80);
+    border-radius: 2px;
+    margin-top: 6px;
+}
+
+.page-subtitle {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    margin: 0;
+}
+
+.btn-tambah {
+    background: linear-gradient(135deg, #2b5e3b, #16a34a);
+    border: none;
+    border-radius: 14px;
+    color: white;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-tambah::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn-tambah:hover {
+    background: linear-gradient(135deg, #1a4a2e, #15803d);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(43, 94, 59, 0.4);
+    color: white;
+}
+
+.btn-tambah:hover::before {
+    left: 100%;
+}
+
+.btn-tambah:active {
+    transform: translateY(0);
+}
+
+/* ---- Search & Filter Bar ---- */
+.search-filter-card {
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    animation: fadeInUp 0.6s ease backwards;
+    animation-delay: 0.1s;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
+.search-filter-card .card-body {
+    padding: 16px 24px;
+}
+
+.search-filter-card .input-group-text {
+    background: transparent;
+    border-color: #e2e8f0;
+    color: #94a3b8;
+}
+
+.search-filter-card .form-control {
+    border-color: #e2e8f0;
+    font-size: 0.875rem;
+}
+
+.search-filter-card .form-control:focus {
+    border-color: #22c55e;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.12);
+}
+
+.btn-filter {
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    color: #475569;
+    font-weight: 500;
+    font-size: 0.85rem;
+    border-radius: 12px;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.25s ease;
+}
+
+.btn-filter:hover {
+    background-color: #f0fdf4;
+    border-color: #86efac;
+    color: #15803d;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(22, 163, 74, 0.1);
+}
+
+.btn-filter i {
+    font-size: 0.9rem;
+}
+
+/* ---- Main Table Card ---- */
+.table-main-card {
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    animation: fadeInUp 0.7s ease backwards;
+    animation-delay: 0.2s;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.table-main-card .table {
+    margin-bottom: 0;
+}
+
+.table-main-card .table thead th {
+    background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+    color: #475569;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    padding: 16px 20px;
+    border-bottom: 2px solid #e2e8f0;
+    border-top: none;
+}
+
+.table-main-card .table tbody tr {
+    transition: all 0.25s ease;
+}
+
+.table-main-card .table tbody tr:hover {
+    background-color: #f0fdf4;
+}
+
+.table-main-card .table tbody td {
+    padding: 16px 20px;
+    vertical-align: middle;
+    border-bottom: 1px solid #f1f5f9;
+    color: #334155;
+}
+
+.table-main-card .table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Disease Thumbnail */
+.disease-thumbnail {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    object-fit: cover;
+    background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+    border: 2px solid #e2e8f0;
+    transition: all 0.3s ease;
+}
+
+.table-main-card .table tbody tr:hover .disease-thumbnail {
+    border-color: #86efac;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(22, 163, 74, 0.15);
+}
+
+/* Disease Name Cell */
+.disease-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #1e293b;
+    margin-bottom: 2px;
+}
+
+.disease-ilmiah {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    font-style: italic;
+}
+
+/* ---- Action Buttons ---- */
+.btn-aksi {
+    font-size: 0.78rem;
+    font-weight: 600;
+    border-radius: 10px;
+    padding: 6px 14px;
+    transition: all 0.25s ease;
+    letter-spacing: 0.2px;
+}
+
+.btn-aksi:hover {
+    transform: translateY(-1px);
+}
+
+.btn-aksi-detail {
+    border-color: #22c55e;
+    color: #16a34a;
+}
+
+.btn-aksi-detail:hover {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    border-color: #16a34a;
+    color: white;
+    box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
+}
+
+.btn-aksi-edit {
+    border-color: #3b82f6;
+    color: #2563eb;
+}
+
+.btn-aksi-edit:hover {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    border-color: #2563eb;
+    color: white;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.btn-aksi-hapus {
+    border-color: #ef4444;
+    color: #dc2626;
+}
+
+.btn-aksi-hapus:hover {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    border-color: #dc2626;
+    color: white;
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+}
+
+/* ---- Pagination ---- */
+.pagination-footer {
+    padding: 16px 24px;
+    border-top: 2px solid #f1f5f9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pagination-footer .text-muted {
+    font-size: 0.8rem;
+    color: #94a3b8;
+}
+
+.pagination-footer .page-link {
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 6px 12px;
+    color: #64748b;
+    transition: all 0.25s ease;
+}
+
+.pagination-footer .page-link:hover {
+    background-color: #f0fdf4;
+    color: #16a34a;
+}
+
+.pagination-footer .page-item.active .page-link {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: white;
+    box-shadow: 0 4px 12px rgba(22, 163, 74, 0.25);
+}
+
+.pagination-footer .page-item.disabled .page-link {
+    color: #cbd5e1;
+}
+
+/* ---- Modal Styles ---- */
+.modal-penyakit .modal-content {
+    border: none;
+    border-radius: 24px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+}
+
+.modal-penyakit .modal-header {
+    border: none;
+    padding: 28px 32px 12px;
+}
+
+.modal-penyakit .modal-title {
+    font-weight: 800;
+    font-size: 1.25rem;
+    color: #1e293b;
+}
+
+.modal-penyakit .modal-body {
+    padding: 16px 32px 20px;
+}
+
+.modal-penyakit .modal-footer {
+    border: none;
+    padding: 12px 32px 28px;
+}
+
+/* Form Controls in Modal */
+.modal-penyakit .form-label {
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: #334155;
+    letter-spacing: 0.2px;
+}
+
+.modal-penyakit .form-control {
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 10px 14px;
+    font-size: 0.875rem;
+    transition: all 0.25s ease;
+    color: #1e293b;
+}
+
+.modal-penyakit .form-control:focus {
+    border-color: #22c55e;
+    box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.1);
+}
+
+.modal-penyakit .form-control::placeholder {
+    color: #cbd5e1;
+}
+
+/* Dynamic List Items */
+.dynamic-item {
+    position: relative;
+    animation: slideIn 0.3s ease;
+}
+
+.dynamic-item textarea {
+    padding-right: 36px !important;
+}
+
+.btn-remove-item {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    width: 24px;
+    height: 24px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    color: #dc2626;
+    font-size: 1.1rem;
+    line-height: 1;
+    opacity: 0.5;
+    transition: all 0.25s ease;
+    background: transparent;
+    border: none;
+}
+
+.btn-remove-item:hover {
+    opacity: 1;
+    background-color: #fef2f2;
+    color: #dc2626;
+    transform: scale(1.1);
+}
+
+/* Add Field Button */
+.btn-add-field {
+    border: 2px dashed #bbf7d0;
+    background-color: #f0fdf4;
+    color: #16a34a;
+    font-weight: 600;
+    font-size: 0.85rem;
+    border-radius: 12px;
+    padding: 12px;
+    width: 100%;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.25s ease;
+}
+
+.btn-add-field:hover {
+    background-color: #dcfce7;
+    border-color: #86efac;
+    color: #15803d;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(22, 163, 74, 0.1);
+}
+
+.btn-add-field i {
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+/* Modal Footer Buttons */
+.btn-modal-cancel {
+    border: 2px solid #e2e8f0;
+    color: #64748b;
+    font-weight: 600;
+    border-radius: 12px;
+    padding: 10px 24px;
+    transition: all 0.25s ease;
+}
+
+.btn-modal-cancel:hover {
+    background-color: #f1f5f9;
+    border-color: #cbd5e1;
+    color: #475569;
+}
+
+.btn-modal-save {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    border: none;
+    color: white;
+    font-weight: 700;
+    border-radius: 12px;
+    padding: 10px 28px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-modal-save::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn-modal-save:hover {
+    background: linear-gradient(135deg, #16a34a, #15803d);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(22, 163, 74, 0.35);
+    color: white;
+}
+
+.btn-modal-save:hover::before {
+    left: 100%;
+}
+
+/* File Input */
+.modal-penyakit input[type="file"] {
+    border: 2px dashed #e2e8f0;
+    border-radius: 12px;
+    padding: 12px 14px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.modal-penyakit input[type="file"]:hover {
+    border-color: #86efac;
+    background-color: #f0fdf4;
+}
+
+/* Detail Modal */
+.modal-detail .modal-content {
+    border: none;
+    border-radius: 24px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+}
+
+.modal-detail .modal-header {
+    border: none;
+    padding: 28px 32px 8px;
+}
+
+.modal-detail .modal-body {
+    padding: 16px 32px 32px;
+}
+
+.modal-detail .modal-title {
+    font-weight: 800;
+    color: #1e293b;
+}
+
+.detail-thumbnail {
+    width: 100%;
+    max-width: 220px;
+    height: 220px;
+    border-radius: 20px;
+    object-fit: cover;
+    border: 3px solid #e2e8f0;
+    background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+    transition: all 0.3s ease;
+}
+
+.detail-label {
+    font-size: 0.72rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.detail-value {
+    font-size: 0.95rem;
+    color: #1e293b;
+    font-weight: 500;
+    line-height: 1.6;
+}
+
+.detail-value ul {
+    padding-left: 18px;
+    margin: 0;
+}
+
+.detail-value ul li {
+    margin-bottom: 4px;
+}
+
+.detail-ilmiah-value {
+    font-style: italic;
+    color: #64748b;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+    .page-header {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .btn-tambah {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .table-main-card .table tbody td {
+        padding: 12px 14px;
+    }
+
+    .modal-penyakit .modal-header,
+    .modal-penyakit .modal-body,
+    .modal-penyakit .modal-footer {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}

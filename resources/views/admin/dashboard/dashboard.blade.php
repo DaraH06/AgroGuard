@@ -109,7 +109,7 @@
                     </div>
                     <div class="card-body d-grid gap-3">
                         <button type="button" onclick="ExportTable(document.getElementById('bulanAwal'))" id="export"
-                            class="btn btn-export w-100">
+                            class="btn btn-export w-100" data-export-url="{{ route('admin.export', ['filename' => 'FILE']) }}">
                             <i class="bi bi-file-earmark-arrow-down"></i>
                             <span id="teks-export"></span>
                         </button>
@@ -161,13 +161,4 @@
 
 @push('scripts')
     @vite('resources/js/dashboard.js')
-    <script>
-        function ExportTable(data) {
-            const filename = `{{ date_format(now(), 'Ymd') }}-laporan bulan ${data.value}.xlsx`;
-
-            let url = "{{ route('admin.export', ['filename' => 'FILE']) }}";
-            url = url.replace('FILE', filename);
-            window.open(`${url}?month_year=${data.value}`, '_blank');
-        }
-    </script>
 @endpush

@@ -10,78 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
-    <style>
-        /* Anda bisa copy-paste CSS dari login.blade.php Anda ke sini agar tampilannya sama persis */
-        body {
-            margin: 0;
-            height: 100vh;
-            font-family: 'Poppins', sans-serif;
-            background-color: #fff;
-            overflow: hidden;
-        }
-
-        .container-login {
-            display: flex;
-            height: 100vh;
-        }
-
-        .left {
-            width: 45%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: white;
-        }
-
-        .login-box {
-            width: 100%;
-            max-width: 580px;
-            padding: 0 40px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .login-header {
-            font-size: 32px;
-            font-weight: 700;
-            color: #193f25;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .form-control-custom {
-            width: 100%;
-            padding: 18px 25px;
-            border-radius: 14px;
-            border: 1.5px solid #e0e0e0;
-            background-color: #e4f5eb;
-            font-size: 19px;
-            transition: 0.3s;
-            margin-bottom: 25px;
-        }
-
-        .btn-login {
-            background: #2b5e3b;
-            color: white;
-            border-radius: 14px;
-            padding: 18px;
-            font-weight: 700;
-            font-size: 22px;
-            border: none;
-            width: 100%;
-            transition: 0.3s;
-        }
-
-        .right {
-            width: 55%;
-            background: radial-gradient(circle at 30% 40%, #1e4a2c 0%, #0d2118 100%);
-            color: white;
-            display: flex;
-            align-items: center;
-            padding: 100px;
-            position: relative;
-        }
-    </style>
+    @vite('resources/css/forgot-password.css')
 </head>
 
 <body>

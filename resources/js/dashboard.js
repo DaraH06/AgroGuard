@@ -278,3 +278,21 @@ function animateValue(element, finalValue) {
         element.style.transform = 'scale(1)';
     }, 200);
 }
+
+window.ExportTable = function(data) {
+    const exportBtn = document.getElementById('export');
+    if (!exportBtn) return;
+    const urlTemplate = exportBtn.dataset.exportUrl;
+    
+    // Get YYYYMMDD
+    const date = new Date();
+    const yyyy = date.getFullYear().toString();
+    const mm = (date.getMonth() + 1).toString().padStart(2, '0');
+    const dd = date.getDate().toString().padStart(2, '0');
+    const dateStr = yyyy + mm + dd;
+
+    const filename = `${dateStr}-laporan bulan ${data.value}.xlsx`;
+
+    let url = urlTemplate.replace('FILE', filename);
+    window.open(`${url}?month_year=${data.value}`, '_blank');
+}

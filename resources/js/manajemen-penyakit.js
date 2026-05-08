@@ -108,7 +108,7 @@ document.querySelectorAll('.disease-detail-trigger').forEach((trigger) => {
     trigger.addEventListener('click', () => {
         const nama = trigger.dataset.nama || '';
         const ilmiah = trigger.dataset.ilmiah || '';
-        const pencegahan = trigger.dataset.pencegahan || '';
+        const pencegahan = trigger.dataset.pencegahan || [];
         const penanganan = trigger.dataset.penanganan || '';
         const thumbnail = trigger.dataset.thumbnail || '';
 

@@ -51,28 +51,34 @@
                             <tr>
                                 <th class="text-center" style="width: 90px;">Thumbnail</th>
                                 <th class="text-start">Nama Penyakit</th>
+                                <th class="text-start">Jumlah Dataset</th>
                                 <th class="text-center" style="width: 220px;">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             {{-- Row 1 --}}
+                            @foreach ($daftar_penyakit as $baris)
                             <tr>
                                 <td class="text-center">
-                                    <img src="{{ asset('images/hawar-daun.jpg') }}" alt="Hawar Daun Bakteri"
+                                    <img src="{{ asset("images/{$baris['thumbnail']}") }}" alt="{{ $baris['thumbnail'] }}"
                                         class="disease-thumbnail"
                                         onerror="this.style.background='linear-gradient(135deg, #dcfce7, #bbf7d0)'; this.removeAttribute('src');">
                                 </td>
                                 <td>
-                                    <div class="disease-name">Hawar Daun Bakteri</div>
-                                    <div class="disease-ilmiah">Xanthomonas oryzae</div>
+                                    <div class="disease-name">{{ $baris['nama_penyakit'] }}</div>
+                                    <div class="disease-ilmiah">{{ $baris['nama_ilmiah'] }}</div>
+                                </td>
+                                <td>
+                                    <div class="disease-name">{{ $baris['jumlah dataset'] }}</div>
                                 </td>
                                 <td class="text-end">
                                     <div class="d-inline-flex gap-2">
                                         <button type="button"
                                             class="btn btn-sm btn-outline-success btn-aksi btn-aksi-detail disease-detail-trigger"
                                             data-bs-toggle="modal" data-bs-target="#modalDetailPenyakit"
-                                            data-nama="Hawar Daun Bakteri" data-ilmiah="Xanthomonas oryzae"
-                                            data-pencegahan="Gunakan benih sehat, lakukan sanitasi lahan, dan rotasi tanaman secara rutin."
+                                            data-nama="{{ $baris['nama_penyakit'] }}" data-ilmiah="{{ $baris['nama_ilmiah'] }}"
+                                            data-deskripsi="{{ $baris['deskripsi'] }}"
+                                            data-pencegahan="{{ $baris['pencegahan'] }}"
                                             data-penanganan="Semprotkan bakterisida tembaga sesuai dosis anjuran dan musnahkan bagian tanaman yang terinfeksi."
                                             data-thumbnail="{{ asset('images/hawar-daun.jpg') }}">Detail</button>
                                         <button class="btn btn-sm btn-outline-primary btn-aksi btn-aksi-edit">Edit</button>
@@ -80,110 +86,7 @@
                                     </div>
                                 </td>
                             </tr>
-
-                            {{-- Row 2 --}}
-                            <tr>
-                                <td class="text-center">
-                                    <img src="{{ asset('images/ulat-grayak.jpg') }}" alt="Ulat Grayak"
-                                        class="disease-thumbnail"
-                                        onerror="this.style.background='linear-gradient(135deg, #dcfce7, #bbf7d0)'; this.removeAttribute('src');">
-                                </td>
-                                <td>
-                                    <div class="disease-name">Ulat Grayak</div>
-                                    <div class="disease-ilmiah">Spodoptera litura</div>
-                                </td>
-                                <td class="text-end">
-                                    <div class="d-inline-flex gap-2">
-                                        <button type="button"
-                                            class="btn btn-sm btn-outline-success btn-aksi btn-aksi-detail disease-detail-trigger"
-                                            data-bs-toggle="modal" data-bs-target="#modalDetailPenyakit"
-                                            data-nama="Ulat Grayak" data-ilmiah="Spodoptera litura"
-                                            data-pencegahan="Lakukan monitoring rutin, bersihkan gulma, dan pasang perangkap hama."
-                                            data-penanganan="Gunakan insektisida sesuai ambang kendali dan ikuti rekomendasi teknis."
-                                            data-thumbnail="{{ asset('images/ulat-grayak.jpg') }}">Detail</button>
-                                        <button class="btn btn-sm btn-outline-primary btn-aksi btn-aksi-edit">Edit</button>
-                                        <button class="btn btn-sm btn-outline-danger btn-aksi btn-aksi-hapus">Hapus</button>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            {{-- Row 3 --}}
-                            <tr>
-                                <td class="text-center">
-                                    <img src="{{ asset('images/wereng-cokelat.jpg') }}" alt="Wereng Cokelat"
-                                        class="disease-thumbnail"
-                                        onerror="this.style.background='linear-gradient(135deg, #dcfce7, #bbf7d0)'; this.removeAttribute('src');">
-                                </td>
-                                <td>
-                                    <div class="disease-name">Wereng Cokelat</div>
-                                    <div class="disease-ilmiah">Nilaparvata lugens</div>
-                                </td>
-                                <td class="text-end">
-                                    <div class="d-inline-flex gap-2">
-                                        <button type="button"
-                                            class="btn btn-sm btn-outline-success btn-aksi btn-aksi-detail disease-detail-trigger"
-                                            data-bs-toggle="modal" data-bs-target="#modalDetailPenyakit"
-                                            data-nama="Wereng Cokelat" data-ilmiah="Nilaparvata lugens"
-                                            data-pencegahan="Jaga kebersihan lahan, hindari pemupukan nitrogen berlebih, dan gunakan varietas tahan."
-                                            data-penanganan="Aplikasikan insektisida selektif secara tepat dan lakukan pengendalian terpadu."
-                                            data-thumbnail="{{ asset('images/wereng-cokelat.jpg') }}">Detail</button>
-                                        <button class="btn btn-sm btn-outline-primary btn-aksi btn-aksi-edit">Edit</button>
-                                        <button class="btn btn-sm btn-outline-danger btn-aksi btn-aksi-hapus">Hapus</button>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            {{-- Row 4 --}}
-                            <tr>
-                                <td class="text-center">
-                                    <img src="{{ asset('images/antraknosa.jpg') }}" alt="Antraknosa"
-                                        class="disease-thumbnail"
-                                        onerror="this.style.background='linear-gradient(135deg, #dcfce7, #bbf7d0)'; this.removeAttribute('src');">
-                                </td>
-                                <td>
-                                    <div class="disease-name">Antraknosa</div>
-                                    <div class="disease-ilmiah">Colletotrichum spp.</div>
-                                </td>
-                                <td class="text-end">
-                                    <div class="d-inline-flex gap-2">
-                                        <button type="button"
-                                            class="btn btn-sm btn-outline-success btn-aksi btn-aksi-detail disease-detail-trigger"
-                                            data-bs-toggle="modal" data-bs-target="#modalDetailPenyakit"
-                                            data-nama="Antraknosa" data-ilmiah="Colletotrichum spp."
-                                            data-pencegahan="Pangkas bagian tanaman yang sakit, jaga sirkulasi udara, dan hindari kelembapan berlebih."
-                                            data-penanganan="Gunakan fungisida yang sesuai dan lakukan sanitasi kebun secara rutin."
-                                            data-thumbnail="{{ asset('images/antraknosa.jpg') }}">Detail</button>
-                                        <button class="btn btn-sm btn-outline-primary btn-aksi btn-aksi-edit">Edit</button>
-                                        <button class="btn btn-sm btn-outline-danger btn-aksi btn-aksi-hapus">Hapus</button>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            {{-- Row 5 --}}
-                            <tr>
-                                <td class="text-center">
-                                    <img src="{{ asset('images/bulai-jagung.jpg') }}" alt="Bulai Jagung"
-                                        class="disease-thumbnail"
-                                        onerror="this.style.background='linear-gradient(135deg, #dcfce7, #bbf7d0)'; this.removeAttribute('src');">
-                                </td>
-                                <td>
-                                    <div class="disease-name">Bulai Jagung</div>
-                                    <div class="disease-ilmiah">Peronosclerospora maydis</div>
-                                </td>
-                                <td class="text-end">
-                                    <div class="d-inline-flex gap-2">
-                                        <button type="button"
-                                            class="btn btn-sm btn-outline-success btn-aksi btn-aksi-detail disease-detail-trigger"
-                                            data-bs-toggle="modal" data-bs-target="#modalDetailPenyakit"
-                                            data-nama="Bulai Jagung" data-ilmiah="Peronosclerospora maydis"
-                                            data-pencegahan="Gunakan benih sehat, tanam varietas tahan, dan hindari kondisi lembap berlebih."
-                                            data-penanganan="Musnahkan tanaman terinfeksi dan lakukan pengendalian sesuai rekomendasi."
-                                            data-thumbnail="{{ asset('images/bulai-jagung.jpg') }}">Detail</button>
-                                        <button class="btn btn-sm btn-outline-primary btn-aksi btn-aksi-edit">Edit</button>
-                                        <button class="btn btn-sm btn-outline-danger btn-aksi btn-aksi-hapus">Hapus</button>
-                                    </div>
-                                </td>
-                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

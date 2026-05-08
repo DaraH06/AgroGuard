@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 
 class crud_penyakit extends Controller
 {
+    function index(Request $req){
+        $data = penyakit::project(['_id'=>0, 'created_at'=>0])->get();
+        
+        return $req->wantsJson() ? response()->json($data)
+                : view('admin.manajemenPenyakit.ManajemenPenyakit', ['daftar_penyakit'=>$data]);
+    }
+
     function store(Request $req)
     {
         $hasil = penyakit::create([

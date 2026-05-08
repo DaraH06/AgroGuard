@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\penyakit;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class SolusiPenyakitSeeder extends Seeder
 {
@@ -18,13 +19,15 @@ class SolusiPenyakitSeeder extends Seeder
             penyakit::truncate();
 
             $diseases = config('konstanta.diseases');
-            Log::info($diseases);
 
         foreach ($diseases as $key => $disease){
             penyakit::create([
-                'nama_penyakit' => $disease,
-                'penanganan' => config('konstanta.solusi')[$disease]['penanganan'],
-                'penanggulangan' => config('konstanta.solusi')[$disease]['penanggulangan'],
+                'thumbnail' => "contoh.jpg",
+                'nama_penyakit' => $key,
+                'nama_ilmiah' => $disease,
+                'deskripsi' => config('konstanta.solusi')[$key]['deskripsi'],
+                'penanganan' => config('konstanta.solusi')[$key]['penanganan'],
+                'penanggulangan' => config('konstanta.solusi')[$key]['penanggulangan'],
                 'jumlah dataset' => 438
             ]);
         }

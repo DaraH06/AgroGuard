@@ -25,6 +25,14 @@ class FlutterImageController extends Controller
             // Call Flask service and capture extraction result
             $flaskResult = $FlaskService->Ekstraksigambar($path);
 
+            if (isset($flaskResult['success']) && $flaskResult['success'] == false) {
+                return response()->json([
+                    'success' => false,
+                    'message' => $flaskResult['message'] ?? 'Gagal mengekstrak fitur gambar',
+                    'extraction' => $flaskResult
+                ], 422);
+            }
+
             $upload = FlutterImage::create([
                 'image_path' => $path,
                 'filename' => basename($path),

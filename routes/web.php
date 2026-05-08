@@ -49,14 +49,13 @@ Route::middleware(['auth'])->group(function (){
         Route::get('export_data/{filename}', [dashboard::class, 'export'])
         ->name('export')->where('filename', '.*\.xlsx$');
 
-        Route::get('/manajemen-penyakit', function () {
-            return view('admin.manajemenPenyakit.ManajemenPenyakit');
-        })->name('manajemen-penyakit');
-
+        
         Route::get('peta-sebaran', function () {
             return view('admin.peta.sebaran');
-        })->name('peta-sebaran');
-
+            })->name('peta-sebaran');
+            
+        Route::get('/manajemen-penyakit',[crud_penyakit::class, 'index']
+        )->name('manajemen-penyakit');
         Route::get('/penyakit/{id}', [crud_penyakit::class , 'show'])->name('penyakit.show');
         Route::post('/penyakit/store', [crud_penyakit::class , 'store'])->name('penyakit.store');
         Route::put('/penyakit/update', [crud_penyakit::class , 'update'])->name('penyakit.update');

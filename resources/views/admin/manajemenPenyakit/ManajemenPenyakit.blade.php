@@ -77,10 +77,10 @@
                                             class="btn btn-sm btn-outline-success btn-aksi btn-aksi-detail disease-detail-trigger"
                                             data-bs-toggle="modal" data-bs-target="#modalDetailPenyakit"
                                             data-nama="{{ $baris['nama_penyakit'] }}" data-ilmiah="{{ $baris['nama_ilmiah'] }}"
-                                            data-deskripsi="{{ $baris['deskripsi'] }}"
-                                            data-pencegahan="{{ $baris['pencegahan'] }}"
-                                            data-penanganan="Semprotkan bakterisida tembaga sesuai dosis anjuran dan musnahkan bagian tanaman yang terinfeksi."
-                                            data-thumbnail="{{ asset('images/hawar-daun.jpg') }}">Detail</button>
+                                            data-deskripsi='@json($baris['deskripsi'] ?? [])'
+                                            data-pencegahan='@json($baris['penanggulangan'] ?? [])'
+                                            data-penanganan='@json($baris['penanganan'] ?? [])'
+                                            data-thumbnail="{{ asset("images/{$baris['thumbnail']}") }}">Detail</button>
                                         <button class="btn btn-sm btn-outline-primary btn-aksi btn-aksi-edit">Edit</button>
                                         <button class="btn btn-sm btn-outline-danger btn-aksi btn-aksi-hapus">Hapus</button>
                                     </div>
@@ -217,6 +217,10 @@
                                 <div>
                                     <div class="detail-label">Nama Ilmiah</div>
                                     <div class="detail-value detail-ilmiah-value" id="detailNamaIlmiah"></div>
+                                </div>
+                                <div>
+                                    <div class="detail-label">Deskripsi</div>
+                                    <div class="detail-value" id="detailDeskripsi"></div>
                                 </div>
                                 <div>
                                     <div class="detail-label">Pencegahan</div>

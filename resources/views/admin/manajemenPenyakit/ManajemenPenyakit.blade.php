@@ -51,41 +51,42 @@
                             <tr>
                                 <th class="text-center" style="width: 90px;">Thumbnail</th>
                                 <th class="text-start">Nama Penyakit</th>
-                                <th class="text-start">Jumlah Dataset</th>
+                                <th class="text-center">Jumlah Dataset</th>
                                 <th class="text-center" style="width: 220px;">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             {{-- Row 1 --}}
                             @foreach ($daftar_penyakit as $baris)
-                            <tr>
-                                <td class="text-center">
-                                    <img src="{{ asset("images/{$baris['thumbnail']}") }}" alt="{{ $baris['thumbnail'] }}"
-                                        class="disease-thumbnail"
-                                        onerror="this.style.background='linear-gradient(135deg, #dcfce7, #bbf7d0)'; this.removeAttribute('src');">
-                                </td>
-                                <td>
-                                    <div class="disease-name">{{ $baris['nama_penyakit'] }}</div>
-                                    <div class="disease-ilmiah">{{ $baris['nama_ilmiah'] }}</div>
-                                </td>
-                                <td>
-                                    <div class="disease-name">{{ $baris['jumlah dataset'] }}</div>
-                                </td>
-                                <td class="text-end">
-                                    <div class="d-inline-flex gap-2">
-                                        <button type="button"
-                                            class="btn btn-sm btn-outline-success btn-aksi btn-aksi-detail disease-detail-trigger"
-                                            data-bs-toggle="modal" data-bs-target="#modalDetailPenyakit"
-                                            data-nama="{{ $baris['nama_penyakit'] }}" data-ilmiah="{{ $baris['nama_ilmiah'] }}"
-                                            data-deskripsi='@json($baris['deskripsi'] ?? [])'
-                                            data-pencegahan='@json($baris['penanggulangan'] ?? [])'
-                                            data-penanganan='@json($baris['penanganan'] ?? [])'
-                                            data-thumbnail="{{ asset("images/{$baris['thumbnail']}") }}">Detail</button>
-                                        <button class="btn btn-sm btn-outline-primary btn-aksi btn-aksi-edit">Edit</button>
-                                        <button class="btn btn-sm btn-outline-danger btn-aksi btn-aksi-hapus">Hapus</button>
-                                    </div>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td class="text-center">
+                                        <img src="{{ asset("images/{$baris['thumbnail']}") }}" alt="{{ $baris['thumbnail'] }}"
+                                            class="disease-thumbnail"
+                                            onerror="this.style.background='linear-gradient(135deg, #dcfce7, #bbf7d0)'; this.removeAttribute('src');">
+                                    </td>
+                                    <td>
+                                        <div class="disease-name">{{ $baris['nama_penyakit'] }}</div>
+                                        <div class="disease-ilmiah">{{ $baris['nama_ilmiah'] }}</div>
+                                    </td>
+                                    <td>
+                                        <div class="disease-name text-center">{{ $baris['jumlah dataset'] }}</div>
+                                    </td>
+                                    <td class="text-end">
+                                        <div class="d-inline-flex gap-2">
+                                            <button type="button"
+                                                class="btn btn-sm btn-outline-success btn-aksi btn-aksi-detail disease-detail-trigger"
+                                                data-bs-toggle="modal" data-bs-target="#modalDetailPenyakit"
+                                                data-nama="{{ $baris['nama_penyakit'] }}"
+                                                data-ilmiah="{{ $baris['nama_ilmiah'] }}"
+                                                data-deskripsi='@json($baris['deskripsi'] ?? [])'
+                                                data-pencegahan='@json($baris['penanggulangan'] ?? [])'
+                                                data-penanganan='@json($baris['penanganan'] ?? [])'
+                                                data-thumbnail="{{ asset("images/{$baris['thumbnail']}") }}">Detail</button>
+                                            <button class="btn btn-sm btn-outline-primary btn-aksi btn-aksi-edit">Edit</button>
+                                            <button class="btn btn-sm btn-outline-danger btn-aksi btn-aksi-hapus">Hapus</button>
+                                        </div>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>

@@ -69,7 +69,7 @@ class send_toFlask extends Controller
         $nama = trim($data['hasil']);
         $solusi = penyakit::where('nama_penyakit', $nama)
         ->project(['_id'=>0])
-        ->select(['nama_penyakit', 'penanganan', 'penanggulangan'])
+        ->select(['nama_penyakit', 'deskripsi', 'penanganan', 'penanggulangan'])
         ->first();
 
         // Log::info($solusi);

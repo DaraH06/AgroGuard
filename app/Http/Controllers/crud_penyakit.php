@@ -14,17 +14,60 @@ class crud_penyakit extends Controller
                 : view('admin.manajemenPenyakit.ManajemenPenyakit', ['daftar_penyakit'=>$data]);
     }
 
-    function store(Request $req)
+    function store(Request $req, send_toFlask $flask)
     {
-        $hasil = penyakit::create([
-            'nama_penyakit' => $req->nama_penyakit,
-            'inang' => $req->inang
+        $req->validate([
+            'nama_penyakit' => 'required|string',
+            'nama_ilmiah' => 'nullable|string',
+            'dataset_zip' => 'nullable|file|mimes:zip|max:102400',
         ]);
 
-        return response()->json([
-            'message' => 'berhasil',
-            'data' => $hasil
+        // Simpan data penyakit ke MongoDB
+        $hasil = penyakit::create([
+            'thumbnail' => 'contoh.jpg',
+            'nama_penyakit' => $req->nama_penyakit,
+            'nama_ilmiah' => $req->nama_ilmiah ?? '',
+            'deskripsi' => $req->input('deskripsi', []),
+            'penanganan' => $req->input('rekomendasi_penanganan', []),
+            'penanggulangan' => $req->input('pencegahan', []),
+            'jumlah dataset' => 0
         ]);
+
+        $datasetResult = null;
+
+        // Proses ZIP jika diupload
+        if ($req->hasFile('dataset_zip')) {
+            $zipFile = $req->file('dataset_zip');
+            $extractPath = storage_path('app/datasets/' . uniqid('ds_'));
+
+            $zip = new \ZipArchive;
+            if ($zip->open($zipFile->getRealPath()) === true) {
+                $zip->extractTo($extractPath);
+                $zip->close();
+
+                // Kirim ke Flask untuk ekstraksi fitur
+                $datasetResult = $flask->prosesDataset($extractPath, $req->nama_penyakit);
+
+                // Update jumlah dataset
+                if ($datasetResult && ($datasetResult['success'] ?? false)) {
+                    $hasil->update(['jumlah dataset' => $datasetResult['jumlah'] ?? 0]);
+                }
+
+                // Hapus folder temporary
+                \Illuminate\Support\Facades\File::deleteDirectory($extractPath);
+            }
+        }
+
+        if ($req->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Penyakit berhasil ditambahkan',
+                'data' => $hasil,
+                'dataset' => $datasetResult
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Penyakit berhasil ditambahkan');
     }
 
     function show($id){

@@ -80,4 +80,31 @@ class send_toFlask extends Controller
             'hasil'=>$solusi ? $solusi->toArray() : null,
             'tingkat keyakinan' => $data['tingkat_keyakinan']];
     }
+
+    /**
+     * Kirim folder gambar ke Flask untuk ekstraksi fitur dan simpan ke MongoDB
+     */
+    function prosesDataset(string $folderPath, string $label)
+    {
+        $response = Http::timeout(300)
+            ->withHeaders(['X-API-KEY' => config('services.flask.key')])
+            ->post(config('services.flask.uri').'proses-dataset', [
+                'path_folder' => $folderPath,
+                'label' => $label
+            ]);
+
+        return json_decode($response, true);
+    }
+
+    /**
+     * Minta Flask untuk refresh/train ulang model KNN
+     */
+    function refreshModel()
+    {
+        $response = Http::timeout(60)
+            ->withHeaders(['X-API-KEY' => config('services.flask.key')])
+            ->post(config('services.flask.uri').'refresh_model');
+
+        return json_decode($response, true);
+    }
 }

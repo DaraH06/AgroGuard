@@ -123,7 +123,7 @@
     <div class="modal fade modal-penyakit" id="modalPenyakit" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
-                <form action="{{ route('admin.penyakit.store') }}" method="post">
+                <form id="formTambahPenyakit" action="{{ route('admin.penyakit.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-header">
                         <h5 class="modal-title">Tambah Penyakit Baru</h5>
@@ -134,12 +134,27 @@
                             <div class="col-md-6">
                                 <label class="form-label">Nama Penyakit</label>
                                 <input name="nama_penyakit" type="text" class="form-control"
-                                    placeholder="Contoh: Hawar Daun Bakteri">
+                                    placeholder="Contoh: Hawar Daun Bakteri" required>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Nama Ilmiah</label>
                                 <input name="nama_ilmiah" type="text" class="form-control"
                                     placeholder="Contoh: Xanthomonas oryzae">
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label">Deskripsi</label>
+                                <div id="deskripsi-container">
+                                    <div id="deskripsi-list" class="d-grid gap-2">
+                                        <div class="dynamic-item">
+                                            <textarea name="deskripsi[]" class="form-control" rows="3"
+                                                placeholder="Contoh: Penyakit yang disebabkan oleh bakteri..."></textarea>
+                                            <button type="button" class="btn btn-remove-item" title="Hapus">&times;</button>
+                                        </div>
+                                    </div>
+                                    <button type="button" id="deskripsi-add" class="btn btn-add-field">
+                                        <i class="bi bi-plus-lg"></i> Tambah Kolom Deskripsi
+                                    </button>
+                                </div>
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label">Pencegahan</label>
@@ -173,20 +188,32 @@
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label">Thumbnail Penyakit</label>
-                                <input type="file" class="form-control" accept="image/*">
+                                <input name="thumbnail_file" type="file" class="form-control" accept="image/*">
                             </div>
                             <div class="col-md-12">
-                                <label class="form-label">Data set</label>
+                                <label class="form-label">Dataset Training</label>
                                 <small class="text-muted d-block mb-2" style="font-size: 0.8rem;">
-                                    Format file: zip/csv yang berisi folder data training dan folder dataset
+                                    Format file: ZIP berisi folder gambar penyakit (.jpg, .png, .jpeg)
                                 </small>
-                                <input type="file" class="form-control" accept="image/*">
+                                <input name="dataset_zip" type="file" class="form-control" accept=".zip">
+                            </div>
+                        </div>
+
+                        {{-- Progress Bar --}}
+                        <div id="uploadProgress" class="mt-3" style="display: none;">
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                <div class="spinner-border spinner-border-sm text-success" role="status"></div>
+                                <small id="uploadStatusText" class="text-muted">Mengupload dan memproses dataset...</small>
+                            </div>
+                            <div class="progress" style="height: 8px;">
+                                <div id="uploadProgressBar" class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+                                    role="progressbar" style="width: 0%"></div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-modal-cancel" data-bs-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-modal-save">Simpan</button>
+                        <button type="submit" id="btnSimpanPenyakit" class="btn btn-modal-save">Simpan</button>
                     </div>
                 </form>
             </div>

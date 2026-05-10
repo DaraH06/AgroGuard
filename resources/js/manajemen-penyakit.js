@@ -30,6 +30,9 @@ function addItem(listId, nameAttr, value = '') {
 
 // Wire add/remove buttons via event delegation
 document.addEventListener('click', (e) => {
+    if (e.target && e.target.id === 'deskripsi-add') {
+        addItem('deskripsi-list', 'deskripsi[]', '');
+    }
     if (e.target && e.target.id === 'pencegahan-add') {
         addItem('pencegahan-list', 'pencegahan[]', '');
     }
@@ -126,3 +129,85 @@ document.querySelectorAll('.disease-detail-trigger').forEach((trigger) => {
         detailThumbnail.alt = nama;
     });
 });
+
+// ========== AJAX Form Submit dengan Progress Bar ==========
+const formTambah = document.getElementById('formTambahPenyakit');
+if (formTambah) {
+    formTambah.addEventListener('submit', function (e) {
+        const datasetInput = formTambah.querySelector('input[name="dataset_zip"]');
+        const hasDataset = datasetInput && datasetInput.files.length > 0;
+
+        // Jika tidak ada dataset ZIP, biarkan form submit biasa
+        if (!hasDataset) return;
+
+        // Jika ada dataset, gunakan AJAX agar bisa tampilkan progress
+        e.preventDefault();
+
+        const progressDiv = document.getElementById('uploadProgress');
+        const progressBar = document.getElementById('uploadProgressBar');
+        const statusText = document.getElementById('uploadStatusText');
+        const btnSimpan = document.getElementById('btnSimpanPenyakit');
+
+        // Tampilkan progress bar
+        progressDiv.style.display = 'block';
+        btnSimpan.disabled = true;
+        btnSimpan.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Memproses...';
+
+        // Animasi progress bar bertahap
+        let progress = 0;
+        const interval = setInterval(() => {
+            if (progress < 30) {
+                progress += 2;
+                statusText.textContent = 'Mengupload file ZIP...';
+            } else if (progress < 60) {
+                progress += 0.5;
+                statusText.textContent = 'Mengekstrak fitur gambar...';
+            } else if (progress < 85) {
+                progress += 0.3;
+                statusText.textContent = 'Melatih ulang model AI...';
+            } else if (progress < 95) {
+                progress += 0.1;
+                statusText.textContent = 'Hampir selesai...';
+            }
+            progressBar.style.width = progress + '%';
+        }, 200);
+
+        // Kirim form via AJAX
+        const formData = new FormData(formTambah);
+
+        fetch(formTambah.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Accept': 'application/json'
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            clearInterval(interval);
+            progressBar.style.width = '100%';
+
+            if (data.success) {
+                statusText.textContent = '✅ ' + (data.dataset?.message || 'Penyakit berhasil ditambahkan!');
+                progressBar.classList.remove('progress-bar-animated');
+
+                // Reload halaman setelah 1.5 detik
+                setTimeout(() => location.reload(), 1500);
+            } else {
+                statusText.textContent = '❌ Gagal: ' + (data.message || 'Terjadi kesalahan');
+                progressBar.classList.replace('bg-success', 'bg-danger');
+                btnSimpan.disabled = false;
+                btnSimpan.innerHTML = 'Simpan';
+            }
+        })
+        .catch(err => {
+            clearInterval(interval);
+            statusText.textContent = '❌ Error: ' + err.message;
+            progressBar.classList.replace('bg-success', 'bg-danger');
+            progressBar.style.width = '100%';
+            btnSimpan.disabled = false;
+            btnSimpan.innerHTML = 'Simpan';
+        });
+    });
+}

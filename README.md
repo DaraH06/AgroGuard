@@ -1,59 +1,154 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<div align="center">
+  <img src="https://images.weserv.nl/?url=raw.githubusercontent.com/laravel/art/master/logo-lockup/5%2520SVG/2%2520CMYK/1%2520Full%2520Color/laravel-logolockup-cmyk-red.svg&w=400" alt="AgroGuard Admin Logo" width="150"/>
+  <h1>🛡️ AgroGuard Admin 🌾</h1>
+  <p><em>Dashboard Admin untuk Monitoring & Manajemen Data Penyakit Tanaman Padi.</em></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+[![Laravel](https://img.shields.io/badge/Laravel-^12.0-FF2D20?logo=laravel&logoColor=white)](https://laravel.com/)
+[![PHP](https://img.shields.io/badge/PHP-^8.2-777BB4?logo=php&logoColor=white)](https://www.php.net/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Database-47A248?logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![Vite](https://img.shields.io/badge/Vite-^7.0-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Repo](https://img.shields.io/badge/Repository-GitHub-181717?logo=github)](https://github.com/Darah06/AgroGuard-admin)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-## About Laravel
+</div>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 📖 Tentang Projek
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+**AgroGuard Admin** adalah dashboard web berbasis Laravel yang merupakan bagian dari ekosistem AgroGuard. Sistem ini berfungsi sebagai pusat kendali bagi admin untuk memantau, menganalisis, dan mengelola data penyakit tanaman padi yang dikirimkan dari aplikasi mobile. Dilengkapi dengan visualisasi data interaktif, peta sebaran penyakit, serta fitur manajemen CRUD yang lengkap.
 
-## Learning Laravel
+## ✨ Fitur Utama
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+- 📊 **Dashboard Analitik**: Visualisasi data penyakit tanaman secara real-time menggunakan Chart.js dengan grafik interaktif.
+- 🗺️ **Peta Sebaran**: Tampilan peta sebaran penyakit berdasarkan data geolokasi dari laporan lapangan.
+- 🦠 **Manajemen Penyakit (CRUD)**: Fitur lengkap untuk menambah, melihat, mengubah, dan menghapus data penyakit.
+- 👤 **Manajemen User**: Pengelolaan akun pengguna dengan kontrol akses berbasis autentikasi.
+- 📥 **Data Export**: Ekspor data laporan ke format Excel (`.xlsx`) untuk analisis lanjutan.
+- 🔗 **API Integration**: Menerima data upload gambar dan metadata dari aplikasi [AgroGuard Mobile](https://github.com/Darah06/AgroGuard-mobile).
+- 🔐 **Autentikasi**: Sistem login yang aman dengan fitur forgot password.
+- 🎨 **UI Modern**: Antarmuka admin yang responsif dan premium menggunakan Tailwind CSS & Alpine.js.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🛠️ Tech Stack
 
-## Laravel Sponsors
+| Layer        | Teknologi                                                          |
+| ------------ | ------------------------------------------------------------------ |
+| **Backend**  | [Laravel 12](https://laravel.com/)                                 |
+| **Database** | [MongoDB](https://www.mongodb.com/) via `mongodb/laravel-mongodb`  |
+| **Frontend** | [Tailwind CSS](https://tailwindcss.com/), [Alpine.js](https://alpinejs.dev/) |
+| **Charting** | [Chart.js](https://www.chartjs.org/)                               |
+| **Bundler**  | [Vite](https://vitejs.dev/)                                       |
+| **Export**   | [SimpleXLSXGen](https://github.com/shuchkin/simplexlsxgen)        |
+| **Language** | PHP ^8.2                                                           |
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 🚀 Persiapan Menjalankan Projek
 
-### Premium Partners
+Ikuti langkah-langkah berikut untuk menjalankan projek di lingkungan lokal Anda:
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### Prasyarat
 
-## Contributing
+- PHP >= 8.2
+- Composer
+- Node.js & NPM
+- MongoDB (lokal atau Atlas)
+- Git
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Instalasi
 
-## Code of Conduct
+```bash
+# 1. Clone repositori
+git clone https://github.com/Darah06/AgroGuard-admin.git
+cd AgroGuard-admin
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# 2. Install dependensi PHP
+composer install
 
-## Security Vulnerabilities
+# 3. Salin file environment
+cp .env.example .env
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+# 4. Generate application key
+php artisan key:generate
 
-## License
+# 5. Konfigurasi koneksi MongoDB di file .env
+#    Sesuaikan DB_CONNECTION, DB_HOST, DB_PORT, DB_DATABASE
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# 6. Install dependensi NPM
+npm install
+
+# 7. Build assets
+npm run build
+```
+
+### Menjalankan Server
+
+```bash
+# Opsi 1: Jalankan semua service sekaligus (server, queue, logs, vite)
+composer run dev
+
+# Opsi 2: Jalankan manual
+php artisan serve        # Laravel server
+npm run dev              # Vite dev server
+```
+
+Akses dashboard melalui: `http://localhost:8000/login`
+
+## 📁 Struktur Projek
+
+```
+AgroGuard-admin/
+├── app/
+│   ├── Http/Controllers/
+│   │   ├── autentikasi.php          # Auth controller
+│   │   ├── crud_penyakit.php        # CRUD penyakit
+│   │   ├── dashboard.php            # Dashboard & export
+│   │   ├── FlutterImageController.php # API upload gambar
+│   │   ├── ManajemenUserController.php # Manajemen user
+│   │   └── send_toFlask.php         # Integrasi Flask AI
+│   └── Models/
+├── resources/views/
+│   ├── admin/
+│   │   ├── dashboard/               # Halaman dashboard
+│   │   ├── manajemenPenyakit/       # CRUD penyakit
+│   │   ├── manajemenUser/           # Manajemen user
+│   │   └── peta/                    # Peta sebaran
+│   ├── auth/                        # Login & forgot password
+│   └── layouts/                     # Layout templates
+├── routes/
+│   ├── web.php                      # Web routes
+│   └── api.php                      # API routes
+└── vite.config.js                   # Vite configuration
+```
+
+## 🤝 Kontributor
+
+Terima kasih kepada anggota kelompok saya yang telah berkontribusi:
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<table align="center">
+  <tr>
+    <td align="center" width="160">
+      <a href="https://github.com/Darah06">
+        <img src="https://images.weserv.nl/?url=github.com/Darah06.png&w=120&h=120&fit=cover&mask=circle" width="100" alt="Darah06"/><br />
+        <sub><b>Darah06</b></sub>
+      </a><br />
+      <sub>💻 🎨 📖</sub>
+    </td>
+    <td align="center" width="160">
+      <a href="https://github.com/inihilmyloh">
+        <img src="https://images.weserv.nl/?url=github.com/inihilmyloh.png&w=120&h=120&fit=cover&mask=circle" width="100" alt="inihilmyloh"/><br />
+        <sub><b>inihilmyloh</b></sub>
+      </a><br />
+      <sub>💻 🎨 📖</sub>
+    </td>
+  </tr>
+</table>
+
+## 📄 Lisensi
+
+Proyek ini dilisensikan di bawah **MIT License** - lihat file [LICENSE](LICENSE) untuk detail lebih lanjut.
+
+---
+
+<div align="center">
+  <i>Dikembangkan dengan ❤️ oleh Tim AgroGuard untuk masa depan pertanian yang lebih cerdas.</i>
+</div>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroGuard HSV Explorer</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; display: flex; flex-direction: column; align-items: center; padding: 40px; margin: 0; }
+        h2 { color: #193f25; margin-bottom: 5px; }
+        p { color: #666; margin-bottom: 30px; }
+        .container { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); display: flex; gap: 40px; flex-wrap: wrap; justify-content: center; }
+        
+        .wheel-section { position: relative; width: 250px; height: 250px; }
+        canvas { cursor: crosshair; border-radius: 50%; box-shadow: 0 0 15px rgba(0,0,0,0.05); }
+        
+        .controls { width: 300px; display: flex; flex-direction: column; gap: 20px; }
+        .preview-box { width: 100%; height: 80px; border-radius: 12px; border: 4px solid #eee; transition: background 0.1s; }
+        
+        .slider-group { display: flex; flex-direction: column; gap: 8px; }
+        label { font-weight: 600; font-size: 14px; color: #444; display: flex; justify-content: space-between; }
+        input[type=range] { width: 100%; cursor: pointer; }
+
+        .output { background: #f8f9fa; padding: 15px; border-radius: 10px; border-left: 4px solid #2b5e3b; font-family: 'Courier New', Courier, monospace; }
+        .output div { margin-bottom: 5px; font-size: 14px; }
+        .highlight { color: #2b5e3b; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <h2>AgroGuard HSV Color Explorer</h2>
+    <p>Gunakan alat ini untuk menentukan range warna pada ekstraksi fitur citra.</p>
+
+    <div class="container">
+        <div class="wheel-section">
+            <canvas id="hueWheel" width="250" height="250"></canvas>
+        </div>
+
+        <div class="controls">
+            <div id="preview" class="preview-box" style="background-color: hsl(0, 100%, 50%);"></div>
+            
+            <div class="slider-group">
+                <label>Saturation (S): <span id="sLabel">100</span>%</label>
+                <input type="range" id="sat" min="0" max="100" value="100">
+            </div>
+
+            <div class="slider-group">
+                <label>Value / Brightness (V): <span id="vLabel">50</span>%</label>
+                <input type="range" id="val" min="0" max="100" value="50">
+            </div>
+
+            <div class="output">
+                <div>HEX: <span id="hexOut" class="highlight">#FF0000</span></div>
+                <div>RGB: <span id="rgbOut" class="highlight">255, 0, 0</span></div>
+                <div>HSV (Standard): <span id="hsvOut" class="highlight">0, 100, 100</span></div>
+                <hr>
+                <div style="font-size: 12px; color: #777;">Cocok untuk <code>cv2.inRange</code>:</div>
+                <div>OpenCV HSV: [<span id="cvOut" class="highlight">0, 255, 255</span>]</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('hueWheel');
+        const ctx = canvas.getContext('2d');
+        const satSlider = document.getElementById('sat');
+        const valSlider = document.getElementById('val');
+        const preview = document.getElementById('preview');
+
+        let currentHue = 0;
+
+        // Menggambar Lingkaran Hue
+        function drawWheel() {
+            const radius = canvas.width / 2;
+            for (let angle = 0; angle < 360; angle++) {
+                const startAngle = (angle - 1) * Math.PI / 180;
+                const endAngle = angle * Math.PI / 180;
+                ctx.beginPath();
+                ctx.moveTo(radius, radius);
+                ctx.arc(radius, radius, radius, startAngle, endAngle);
+                ctx.fillStyle = `hsl(${angle}, 100%, 50%)`;
+                ctx.fill();
+            }
+        }
+
+        function updateColor(e) {
+            if (e && e.buttons === 1) {
+                const rect = canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left - canvas.width / 2;
+                const y = e.clientY - rect.top - canvas.height / 2;
+                currentHue = Math.round(Math.atan2(y, x) * (180 / Math.PI));
+                if (currentHue < 0) currentHue += 360;
+            }
+
+            const s = satSlider.value;
+            const v = valSlider.value;
+
+            document.getElementById('sLabel').innerText = s;
+            document.getElementById('vLabel').innerText = v;
+
+            // Tampilkan warna di preview (menggunakan HSL untuk CSS sederhana)
+            // CSS HSL L (Lightness) tidak sama persis dengan HSV V (Value), 
+            // jadi kita hitung RGB manual untuk akurasi preview.
+            const rgb = hsvToRgb(currentHue / 360, s / 100, v / 100);
+            const hex = "#" + ((1 << 24) + (rgb[0] << 16) + (rgb[1] << 8) + rgb[2]).toString(16).slice(1).toUpperCase();
+            
+            preview.style.backgroundColor = hex;
+            
+            document.getElementById('hexOut').innerText = hex;
+            document.getElementById('rgbOut').innerText = `${rgb[0]}, ${rgb[1]}, ${rgb[2]}`;
+            document.getElementById('hsvOut').innerText = `${currentHue}, ${s}%, ${v}%`;
+            
+            // OpenCV Format: H (0-179), S (0-255), V (0-255)
+            const cvH = Math.round(currentHue / 2);
+            const cvS = Math.round(s * 2.55);
+            const cvV = Math.round(v * 2.55);
+            document.getElementById('cvOut').innerText = `${cvH}, ${cvS}, ${cvV}`;
+        }
+
+        function hsvToRgb(h, s, v) {
+            let r, g, b;
+            let i = Math.floor(h * 6);
+            let f = h * 6 - i;
+            let p = v * (1 - s);
+            let q = v * (1 - f * s);
+            let t = v * (1 - (1 - f) * s);
+            switch (i % 6) {
+                case 0: r = v, g = t, b = p; break;
+                case 1: r = q, g = v, b = p; break;
+                case 2: r = p, g = v, b = t; break;
+                case 3: r = p, g = q, b = v; break;
+                case 4: r = t, g = p, b = v; break;
+                case 5: r = v, g = p, b = q; break;
+            }
+            return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+        }
+
+        drawWheel();
+        canvas.addEventListener('mousedown', updateColor);
+        canvas.addEventListener('mousemove', updateColor);
+        satSlider.addEventListener('input', () => updateColor());
+        valSlider.addEventListener('input', () => updateColor());
+        
+        // Initial update
+        updateColor();
+    </script>
+</body>
+</html>

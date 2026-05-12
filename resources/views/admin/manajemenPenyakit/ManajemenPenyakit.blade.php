@@ -77,8 +77,7 @@
                                             class="btn btn-sm btn-outline-success btn-aksi btn-aksi-detail disease-detail-trigger"
                                             data-bs-toggle="modal" data-bs-target="#modalDetailPenyakit"
                                             data-nama="{{ $baris['nama_penyakit'] }}" data-ilmiah="{{ $baris['nama_ilmiah'] }}"
-                                            data-deskripsi="{{ $baris['deskripsi'] }}"
-                                            data-pencegahan="{{ $baris['pencegahan'] }}"
+                                            
                                             data-penanganan="Semprotkan bakterisida tembaga sesuai dosis anjuran dan musnahkan bagian tanaman yang terinfeksi."
                                             data-thumbnail="{{ asset('images/hawar-daun.jpg') }}">Detail</button>
                                         <button class="btn btn-sm btn-outline-primary btn-aksi btn-aksi-edit">Edit</button>

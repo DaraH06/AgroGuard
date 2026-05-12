@@ -16,7 +16,7 @@
 
 ## 📖 Tentang Projek
 
-**AgroGuard Admin** adalah dashboard web berbasis Laravel yang merupakan bagian dari ekosistem AgroGuard Mobile . Sistem ini berfungsi sebagai pusat kendali bagi admin untuk memantau, menganalisis, dan mengelola data penyakit tanaman padi yang dikirimkan dari aplikasi mobile. Dilengkapi dengan visualisasi data interaktif, peta sebaran penyakit, serta fitur manajemen CRUD yang lengkap.
+**AgroGuard Admin** adalah dashboard web berbasis Laravel yang merupakan bagian dari ekosistem AgroGuard. Sistem ini berfungsi sebagai pusat kendali bagi admin untuk memantau, menganalisis, dan mengelola data penyakit tanaman padi yang dikirimkan dari aplikasi mobile. Dilengkapi dengan visualisasi data interaktif, peta sebaran penyakit, serta fitur manajemen CRUD yang lengkap.
 
 ## ✨ Fitur Utama
 

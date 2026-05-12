@@ -42,6 +42,36 @@ class FlutterImageController extends Controller
                 'uploaded_at' => now(),
             ]);
 
+            // Save to log_klasifikasi if classification is successful and not Healthy
+            if (isset($flaskResult['success']) && $flaskResult['success'] == true) {
+                $hasil = $flaskResult['nama_penyakit'] ?? 'Unknown';
+                
+                if ($hasil !== 'Healthy' && $hasil !== 'Unknown') {
+                    // Extract confidence percentage
+                    $tingkat_keyakinan = '0%';
+                    if (isset($flaskResult['tingkat keyakinan']) && is_array($flaskResult['tingkat keyakinan'])) {
+                        foreach ($flaskResult['tingkat keyakinan'] as $key => $value) {
+                            if ($key === $hasil) {
+                                $tingkat_keyakinan = $value;
+                                break;
+                            }
+                        }
+                    }
+
+                    \App\Models\log_klasifikasi::create([
+                        'hasil_label' => $hasil,
+                        'keyakinan_model' => $tingkat_keyakinan,
+                        'lokasi' => [
+                            'provinsi' => $request->input('provinsi', 'Tidak diketahui'),
+                            'kabupaten' => $request->input('kabupaten', 'Tidak diketahui'),
+                            'kecamatan' => $request->input('kecamatan', 'Tidak diketahui'),
+                        ],
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
+                }
+            }
+
             return response()->json([
                 'success' => true,
                 'message' => 'Gambar berhasil diupload',

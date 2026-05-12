@@ -51,40 +51,42 @@
                             <tr>
                                 <th class="text-center" style="width: 90px;">Thumbnail</th>
                                 <th class="text-start">Nama Penyakit</th>
-                                <th class="text-start">Jumlah Dataset</th>
+                                <th class="text-center">Jumlah Dataset</th>
                                 <th class="text-center" style="width: 220px;">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             {{-- Row 1 --}}
                             @foreach ($daftar_penyakit as $baris)
-                            <tr>
-                                <td class="text-center">
-                                    <img src="{{ asset("images/{$baris['thumbnail']}") }}" alt="{{ $baris['thumbnail'] }}"
-                                        class="disease-thumbnail"
-                                        onerror="this.style.background='linear-gradient(135deg, #dcfce7, #bbf7d0)'; this.removeAttribute('src');">
-                                </td>
-                                <td>
-                                    <div class="disease-name">{{ $baris['nama_penyakit'] }}</div>
-                                    <div class="disease-ilmiah">{{ $baris['nama_ilmiah'] }}</div>
-                                </td>
-                                <td>
-                                    <div class="disease-name">{{ $baris['jumlah dataset'] }}</div>
-                                </td>
-                                <td class="text-end">
-                                    <div class="d-inline-flex gap-2">
-                                        <button type="button"
-                                            class="btn btn-sm btn-outline-success btn-aksi btn-aksi-detail disease-detail-trigger"
-                                            data-bs-toggle="modal" data-bs-target="#modalDetailPenyakit"
-                                            data-nama="{{ $baris['nama_penyakit'] }}" data-ilmiah="{{ $baris['nama_ilmiah'] }}"
-                                            
-                                            data-penanganan="Semprotkan bakterisida tembaga sesuai dosis anjuran dan musnahkan bagian tanaman yang terinfeksi."
-                                            data-thumbnail="{{ asset('images/hawar-daun.jpg') }}">Detail</button>
-                                        <button class="btn btn-sm btn-outline-primary btn-aksi btn-aksi-edit">Edit</button>
-                                        <button class="btn btn-sm btn-outline-danger btn-aksi btn-aksi-hapus">Hapus</button>
-                                    </div>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td class="text-center">
+                                        <img src="{{ asset("images/{$baris['thumbnail']}") }}" alt="{{ $baris['thumbnail'] }}"
+                                            class="disease-thumbnail"
+                                            onerror="this.style.background='linear-gradient(135deg, #dcfce7, #bbf7d0)'; this.removeAttribute('src');">
+                                    </td>
+                                    <td>
+                                        <div class="disease-name">{{ $baris['nama_penyakit'] }}</div>
+                                        <div class="disease-ilmiah">{{ $baris['nama_ilmiah'] }}</div>
+                                    </td>
+                                    <td>
+                                        <div class="disease-name text-center">{{ $baris['jumlah dataset'] }}</div>
+                                    </td>
+                                    <td class="text-end">
+                                        <div class="d-inline-flex gap-2">
+                                            <button type="button"
+                                                class="btn btn-sm btn-outline-success btn-aksi btn-aksi-detail disease-detail-trigger"
+                                                data-bs-toggle="modal" data-bs-target="#modalDetailPenyakit"
+                                                data-nama="{{ $baris['nama_penyakit'] }}"
+                                                data-ilmiah="{{ $baris['nama_ilmiah'] }}"
+                                                data-deskripsi='@json($baris['deskripsi'] ?? [])'
+                                                data-pencegahan='@json($baris['penanggulangan'] ?? [])'
+                                                data-penanganan='@json($baris['penanganan'] ?? [])'
+                                                data-thumbnail="{{ asset("images/{$baris['thumbnail']}") }}">Detail</button>
+                                            <button class="btn btn-sm btn-outline-primary btn-aksi btn-aksi-edit">Edit</button>
+                                            <button class="btn btn-sm btn-outline-danger btn-aksi btn-aksi-hapus">Hapus</button>
+                                        </div>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>
@@ -121,7 +123,7 @@
     <div class="modal fade modal-penyakit" id="modalPenyakit" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
-                <form action="{{ route('admin.penyakit.store') }}" method="post">
+                <form id="formTambahPenyakit" action="{{ route('admin.penyakit.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-header">
                         <h5 class="modal-title">Tambah Penyakit Baru</h5>
@@ -132,12 +134,27 @@
                             <div class="col-md-6">
                                 <label class="form-label">Nama Penyakit</label>
                                 <input name="nama_penyakit" type="text" class="form-control"
-                                    placeholder="Contoh: Hawar Daun Bakteri">
+                                    placeholder="Contoh: Hawar Daun Bakteri" required>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Nama Ilmiah</label>
                                 <input name="nama_ilmiah" type="text" class="form-control"
                                     placeholder="Contoh: Xanthomonas oryzae">
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label">Deskripsi</label>
+                                <div id="deskripsi-container">
+                                    <div id="deskripsi-list" class="d-grid gap-2">
+                                        <div class="dynamic-item">
+                                            <textarea name="deskripsi[]" class="form-control" rows="3"
+                                                placeholder="Contoh: Penyakit yang disebabkan oleh bakteri..."></textarea>
+                                            <button type="button" class="btn btn-remove-item" title="Hapus">&times;</button>
+                                        </div>
+                                    </div>
+                                    <button type="button" id="deskripsi-add" class="btn btn-add-field">
+                                        <i class="bi bi-plus-lg"></i> Tambah Kolom Deskripsi
+                                    </button>
+                                </div>
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label">Pencegahan</label>
@@ -171,20 +188,32 @@
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label">Thumbnail Penyakit</label>
-                                <input type="file" class="form-control" accept="image/*">
+                                <input name="thumbnail_file" type="file" class="form-control" accept="image/*">
                             </div>
                             <div class="col-md-12">
-                                <label class="form-label">Data set</label>
+                                <label class="form-label">Dataset Training</label>
                                 <small class="text-muted d-block mb-2" style="font-size: 0.8rem;">
-                                    Format file: zip/csv yang berisi folder data training dan folder dataset
+                                    Format file: ZIP berisi folder gambar penyakit (.jpg, .png, .jpeg)
                                 </small>
-                                <input type="file" class="form-control" accept="image/*">
+                                <input name="dataset_zip" type="file" class="form-control" accept=".zip">
+                            </div>
+                        </div>
+
+                        {{-- Progress Bar --}}
+                        <div id="uploadProgress" class="mt-3" style="display: none;">
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                <div class="spinner-border spinner-border-sm text-success" role="status"></div>
+                                <small id="uploadStatusText" class="text-muted">Mengupload dan memproses dataset...</small>
+                            </div>
+                            <div class="progress" style="height: 8px;">
+                                <div id="uploadProgressBar" class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+                                    role="progressbar" style="width: 0%"></div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-modal-cancel" data-bs-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-modal-save">Simpan</button>
+                        <button type="submit" id="btnSimpanPenyakit" class="btn btn-modal-save">Simpan</button>
                     </div>
                 </form>
             </div>
@@ -216,6 +245,10 @@
                                 <div>
                                     <div class="detail-label">Nama Ilmiah</div>
                                     <div class="detail-value detail-ilmiah-value" id="detailNamaIlmiah"></div>
+                                </div>
+                                <div>
+                                    <div class="detail-label">Deskripsi</div>
+                                    <div class="detail-value" id="detailDeskripsi"></div>
                                 </div>
                                 <div>
                                     <div class="detail-label">Pencegahan</div>

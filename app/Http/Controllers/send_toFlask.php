@@ -77,6 +77,7 @@ class send_toFlask extends Controller
 
         return [
             'success'=>true,
+            'nama_penyakit' => $nama,
             'hasil'=>$solusi ? $solusi->toArray() : null,
             'tingkat keyakinan' => $data['tingkat_keyakinan']];
     }

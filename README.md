@@ -31,15 +31,15 @@
 
 ## 🛠️ Tech Stack
 
-| Layer        | Teknologi                                                          |
-| ------------ | ------------------------------------------------------------------ |
-| **Backend**  | [Laravel 12](https://laravel.com/)                                 |
-| **Database** | [MongoDB](https://www.mongodb.com/) via `mongodb/laravel-mongodb`  |
+| Layer        | Teknologi                                                                    |
+| ------------ | ---------------------------------------------------------------------------- |
+| **Backend**  | [Laravel 12](https://laravel.com/)                                           |
+| **Database** | [MongoDB](https://www.mongodb.com/) via `mongodb/laravel-mongodb`            |
 | **Frontend** | [Tailwind CSS](https://tailwindcss.com/), [Alpine.js](https://alpinejs.dev/) |
-| **Charting** | [Chart.js](https://www.chartjs.org/)                               |
-| **Bundler**  | [Vite](https://vitejs.dev/)                                       |
-| **Export**   | [SimpleXLSXGen](https://github.com/shuchkin/simplexlsxgen)        |
-| **Language** | PHP ^8.2                                                           |
+| **Charting** | [Chart.js](https://www.chartjs.org/)                                         |
+| **Bundler**  | [Vite](https://vitejs.dev/)                                                  |
+| **Export**   | [SimpleXLSXGen](https://github.com/shuchkin/simplexlsxgen)                   |
+| **Language** | PHP ^8.2                                                                     |
 
 ## 🚀 Persiapan Menjalankan Projek
 
@@ -134,11 +134,32 @@ Terima kasih kepada anggota kelompok saya yang telah berkontribusi:
       <sub>💻 🎨 📖</sub>
     </td>
     <td align="center" width="160">
-      <a href="https://github.com/inihilmyloh">
+      <a href="https://github.com/7-hikari">
+        <img src="https://images.weserv.nl/?url=github.com/7-hikari.png&w=120&h=120&fit=cover&mask=circle" width="100" alt="7-hikari"/><br />
+        <sub><b>7-hikari</b></sub>
+      </a><br />
+      <sub>💻 📖</sub>
+    </td>
+    <td align="center" width="160">
+      <a href="https://github.com/">
         <img src="https://images.weserv.nl/?url=github.com/inihilmyloh.png&w=120&h=120&fit=cover&mask=circle" width="100" alt="inihilmyloh"/><br />
         <sub><b>inihilmyloh</b></sub>
       </a><br />
-      <sub>💻 🎨 📖</sub>
+      <sub>💻📖</sub>
+    </td>
+    <td align="center" width="160">
+      <a href="https://github.com/riskaazizah26">
+        <img src="https://images.weserv.nl/?url=github.com/riskaazizah26.png&w=120&h=120&fit=cover&mask=circle" width="100" alt="riskaazizah26"/><br />
+        <sub><b>riskaazizah26</b></sub>
+      </a><br />
+      <sub>💻🎨</sub>
+    </td>
+    <td align="center" width="160">
+      <a href="https://github.com/ahmadrifai-gan">
+        <img src="https://images.weserv.nl/?url=github.com/ahmadrifai-gan.png&w=120&h=120&fit=cover&mask=circle" width="100" alt="ahmadrifai-gan"/><br />
+        <sub><b>ahmadrifai-gan</b></sub>
+      </a><br />
+      <sub>💻🎨</sub>
     </td>
   </tr>
 </table>

@@ -66,7 +66,7 @@ Route::middleware(['auth'])->group(function (){
             Route::get('/manajemen-user', [ManajemenUserController::class, 'index'])->name('index');
             Route::get('/manajemen-user/create', [ManajemenUserController::class, 'create'])->name('create');
             Route::post('/user/store', [ManajemenUserController::class, 'store'])->name('store');
-            Route::delete('/user/delete/{id}', [ManajemenUserController::class, 'destroy'])->name('delete');
+            Route::delete('/user/delete', [ManajemenUserController::class, 'destroy'])->name('delete');
             Route::get('/user/get', [ManajemenUserController::class, 'getUsers'])->name('get');
         });
     });

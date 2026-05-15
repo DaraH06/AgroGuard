@@ -27,7 +27,6 @@ return [
                     'Bacterial Leaf Blight' => 'Xanthomonas oryzae pv. oryzae',
                     'Brown Spot' => 'Bipolaris oryzae',
                     'Leaf Scald' => 'Microdochium oryzae',
-                    'Leaf Blast' => 'Pyricularia oryzae Cavara',
                     'Narrow Brown Spot' => 'Cercospora janseana'],
 
     'solusi' => [

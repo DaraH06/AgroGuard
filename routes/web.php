@@ -56,10 +56,9 @@ Route::middleware(['auth'])->group(function (){
             
         Route::get('/manajemen-penyakit',[crud_penyakit::class, 'index']
         )->name('manajemen-penyakit');
-        Route::get('/penyakit/{id}', [crud_penyakit::class , 'show'])->name('penyakit.show');
         Route::post('/penyakit/store', [crud_penyakit::class , 'store'])->name('penyakit.store');
         Route::put('/penyakit/update', [crud_penyakit::class , 'update'])->name('penyakit.update');
-        Route::delete('/penyakit/delete', [crud_penyakit::class , 'destroy'])->name('penyakit.delete');
+        Route::delete('/penyakit/delete/{id}', [crud_penyakit::class , 'destroy'])->name('penyakit.delete');
 
         //manajemen user
 
@@ -67,7 +66,7 @@ Route::middleware(['auth'])->group(function (){
             Route::get('/manajemen-user', [ManajemenUserController::class, 'index'])->name('index');
             Route::get('/manajemen-user/create', [ManajemenUserController::class, 'create'])->name('create');
             Route::post('/user/store', [ManajemenUserController::class, 'store'])->name('store');
-            Route::delete('/user/delete', [ManajemenUserController::class, 'destroy'])->name('delete');
+            Route::delete('/user/delete/{id}', [ManajemenUserController::class, 'destroy'])->name('delete');
             Route::get('/user/get', [ManajemenUserController::class, 'getUsers'])->name('get');
         });
     });

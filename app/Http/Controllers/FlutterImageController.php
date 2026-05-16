@@ -65,6 +65,10 @@ class FlutterImageController extends Controller
                             'provinsi' => $request->input('provinsi', 'Tidak diketahui'),
                             'kabupaten' => $request->input('kabupaten', 'Tidak diketahui'),
                             'kecamatan' => $request->input('kecamatan', 'Tidak diketahui'),
+                            'koordinat' => [
+                                (float) $request->input('latitude', 0),
+                                (float) $request->input('longitude', 0),
+                            ],
                         ],
                         'created_at' => now(),
                         'updated_at' => now(),

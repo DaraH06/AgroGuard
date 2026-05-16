@@ -110,7 +110,7 @@ body {
 }
 
 .btn-login {
-    background: #2b5e3b;
+    background: #16a34a;
     color: white;
     border-radius: 14px;
     padding: 18px;
@@ -118,14 +118,21 @@ body {
     font-size: 22px;
     border: none;
     width: 100%;
-    transition: 0.3s;
-    box-shadow: 0 8px 15px rgba(43, 94, 59, 0.1);
+    transition: background-color 0.2s ease;
+    box-shadow: 0 4px 12px rgba(22, 163, 74, 0.15);
 }
 
 .btn-login:hover {
-    background: #1e4a2c;
-    transform: translateY(-2px);
-    box-shadow: 0 12px 20px rgba(43, 94, 59, 0.2);
+    background: #15803d;
+    color: white;
+}
+
+.btn-login:active,
+.btn-login:focus,
+.btn-login:active:focus {
+    background: #15803d !important;
+    color: white !important;
+    box-shadow: none !important;
 }
 
 .right {

@@ -128,8 +128,14 @@
 
 .btn-submit:hover:not(:disabled) {
     background-color: #15803d;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
+}
+
+.btn-submit:active:not(:disabled),
+.btn-submit:focus:not(:disabled),
+.btn-submit:active:focus:not(:disabled) {
+    background-color: #15803d !important;
+    color: white !important;
+    box-shadow: none !important;
 }
 
 .btn-submit:disabled {
@@ -156,7 +162,14 @@
 
 .btn-cancel:hover {
     background-color: #cbd5e1;
-    transform: translateY(-2px);
+}
+
+.btn-cancel:active,
+.btn-cancel:focus,
+.btn-cancel:active:focus {
+    background-color: #cbd5e1 !important;
+    color: #475569 !important;
+    box-shadow: none !important;
 }
 
 .alert {

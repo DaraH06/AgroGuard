@@ -106,15 +106,49 @@ class crud_penyakit extends Controller
     }
 
     function update(Request $req){
+        $req->validate([
+            'nama_penyakit' => 'required|string',
+            'nama_ilmiah'   => 'nullable|string',
+            'thumbnail_file'=> 'nullable|file|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
         $penyakit = penyakit::find($req->id);
-        if($penyakit){
-            $penyakit->update([
-                'nama' => $req->nama_penyakit,
-                'inang' => $req->inang
-            ]);
-            return redirect()->back()->with('success', 'berhasil diperbarui');
+        if (!$penyakit) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data penyakit tidak ditemukan'
+            ], 404);
+        }
+
+        $updateData = [
+            'nama_penyakit'  => $req->nama_penyakit,
+            'nama_ilmiah'    => $req->nama_ilmiah ?? '',
+            'deskripsi'      => $req->input('deskripsi', []),
+            'penanganan'     => $req->input('rekomendasi_penanganan', []),
+            'penanggulangan' => $req->input('pencegahan', []),
+        ];
+
+        // Handle thumbnail update (optional)
+        if ($req->hasFile('thumbnail_file')) {
+            $photo = $req->file('thumbnail_file');
+            $name  = time() . '_' . $req->nama_penyakit . '.' . $photo->getClientOriginalExtension();
+
+            // Hapus thumbnail lama
+            $oldThumbnail = $penyakit->thumbnail;
+            if ($oldThumbnail && File::exists(public_path('images/' . $oldThumbnail))) {
+                File::delete(public_path('images/' . $oldThumbnail));
             }
-        return redirect()->back()->with('success', 'data tidak ditemukan'); 
+
+            $photo->move(public_path('images'), $name);
+            $updateData['thumbnail'] = $name;
+        }
+
+        $penyakit->update($updateData);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Penyakit berhasil diperbarui'
+        ]);
     }
 
     function destroy(Request $req, send_toFlask $flask){

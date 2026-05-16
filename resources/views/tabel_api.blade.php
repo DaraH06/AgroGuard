@@ -64,6 +64,18 @@
                 </td>
             </tr>
             <tr style="border-bottom: 1px solid #f5f5f5;">
+                <td class="px-4 py-3">GET</td>
+                <td class="px-4 py-3">Manajemen Penyakit</td>
+                <td class="px-4 py-3">Semua
+                </td>
+                <td class="px-4 py-3">
+                    <button type="button" onclick="getData(false, 'admin/manajemen-penyakit')"
+                        class="btn btn-sm btn-outline-success rounded-3">
+                        Cek
+                    </button>
+                </td>
+            </tr>
+            <tr style="border-bottom: 1px solid #f5f5f5;">
                 <td class="px-4 py-3">POST</td>
                 <td class="px-4 py-3">Data Dashboard</td>
                 <td class="px-4 py-3">Bulan
@@ -90,13 +102,13 @@
     }
 
     function getData(data, url) {
-        let link = url;
-        if (data) {
-            link = `${url}=${data}`;
-        }
+        let link = `${url}${data ? `?tahun=${data}` : ''}`;
         fetch(`/${link}`, {
             method: 'GET',
-            headers: { 'Accept': 'application/json' }
+            headers: { 'Accept': 'application/json',
+                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                    .getAttribute('content')
+             }
         }).then(response => response.json())
             .then(data => {
                 if (data.success) {
@@ -114,6 +126,7 @@
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Accept': 'application/json',
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
                     .getAttribute('content')
             },

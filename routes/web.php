@@ -56,10 +56,9 @@ Route::middleware(['auth'])->group(function (){
             
         Route::get('/manajemen-penyakit',[crud_penyakit::class, 'index']
         )->name('manajemen-penyakit');
-        Route::get('/penyakit/{id}', [crud_penyakit::class , 'show'])->name('penyakit.show');
         Route::post('/penyakit/store', [crud_penyakit::class , 'store'])->name('penyakit.store');
         Route::put('/penyakit/update', [crud_penyakit::class , 'update'])->name('penyakit.update');
-        Route::delete('/penyakit/delete', [crud_penyakit::class , 'destroy'])->name('penyakit.delete');
+        Route::delete('/penyakit/delete/{id}', [crud_penyakit::class , 'destroy'])->name('penyakit.delete');
 
         //manajemen user
 

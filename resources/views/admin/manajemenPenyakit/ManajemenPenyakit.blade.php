@@ -81,9 +81,11 @@
                                                 data-deskripsi='@json($baris['deskripsi'] ?? [])'
                                                 data-pencegahan='@json($baris['penanggulangan'] ?? [])'
                                                 data-penanganan='@json($baris['penanganan'] ?? [])'
+                                                data-riwayat="{{$baris['updated_at'] ?? $baris['created_at']}}"
                                                 data-thumbnail="{{ asset("images/{$baris['thumbnail']}") }}">Detail</button>
                                             <button class="btn btn-sm btn-outline-primary btn-aksi btn-aksi-edit">Edit</button>
-                                            <button class="btn btn-sm btn-outline-danger btn-aksi btn-aksi-hapus">Hapus</button>
+                                            <button class="btn btn-sm btn-outline-danger btn-aksi btn-aksi-hapus"
+                                                data-id="{{ $baris['id'] }}">Hapus</button>
                                         </div>
                                     </td>
                                 </tr>
@@ -257,6 +259,10 @@
                                 <div>
                                     <div class="detail-label">Rekomendasi Penanganan</div>
                                     <div class="detail-value" id="detailPenanganan"></div>
+                                </div>
+                                <div>
+                                    <div class="detail-label">Riwayat Pembaruan</div>
+                                    <div class="detail-value" id="detailRiwayat"></div>
                                 </div>
                             </div>
                         </div>

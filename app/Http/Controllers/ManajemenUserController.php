@@ -31,6 +31,14 @@ class ManajemenUserController extends Controller
                 ], 404);
             }
 
+            $emailAktif = $request->session()->get('email');
+            if ($emailAktif && strtolower($user->email) === strtolower($emailAktif)) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'User yang sedang digunakan tidak dapat dihapus'
+                ], 403);
+            }
+
             $user->delete();
 
             return response()->json([

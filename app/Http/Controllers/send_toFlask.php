@@ -56,7 +56,7 @@ class send_toFlask extends Controller
                 }
             }
             $keyakinan_3 = array_filter($keyakinan_3, function($value){
-                return $value !== "0,00%";
+                return $value != 0.00;
             });
             arsort($keyakinan_3);
             $top3 = array_slice($keyakinan_3, 0, 3, true);
@@ -91,7 +91,7 @@ class send_toFlask extends Controller
      * Kirim folder gambar ke Flask untuk ekstraksi fitur dan simpan ke MongoDB
      */
     function prosesDataset(string $folderPath, string $label, string $outputPath)
-    {
+    {   
         try{
             $response = Http::timeout(300)
                 ->withHeaders(['X-API-KEY' => config('services.flask.key')])
@@ -100,7 +100,7 @@ class send_toFlask extends Controller
                     'label' => $label,
                     'path_result'=> $outputPath
                 ]);
-    
+            
             return json_decode($response, true);
         }catch(ConnectionException $e){
             return ['success' => false, 'message' => 'Tidak dapat menhubungi model. Hubungi developer atau administrator.'];

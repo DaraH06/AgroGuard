@@ -29,14 +29,6 @@ Route::controller(autentikasi::class)->group(function(){
     Route::post('login', 'login');
     
     Route::get('/logout', 'logout')->name('logout');
-    Route::get('/forgot-password', function () {
-        return view('auth.forgot-password');
-    })->name('password.request');
-
-    Route::post('/forgot-password', function () {
-        // Sementara kosongkan dulu atau beri feedback
-        return "Link reset password telah dikirim ke email Anda! (Logika backend menyusul)";
-    })->name('password.email');
 });
 
 
@@ -74,14 +66,14 @@ Route::middleware(['auth'])->group(function (){
     //api web
 
     Route::prefix('api_admin')->name('api_admin.')->group(function () {
-        Route::post('dashboard', [dashboard::class , 'index']);
-        Route::get('map', [dashboard::class , 'mapVisualisasi']);
+        Route::post('dashboard', [dashboard::class , 'index'])->name('dashboard');
+        Route::get('map', [dashboard::class , 'mapVisualisasi'])->name('map');
     });
 
     Route::prefix('testing')->name('test.')->group(function (){
         Route::get('/', function(){
             return view('tabel_api');
         });
-        Route::get('users', [ManajemenUserController::class, 'getUsers']);
+        Route::get('users', [ManajemenUserController::class, 'getUsers'])->name('users');
     });
 });

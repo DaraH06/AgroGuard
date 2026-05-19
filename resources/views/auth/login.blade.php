@@ -47,14 +47,6 @@
                             <i class="bi bi-eye toggle-password" onclick="togglePassword()"></i>
                         </div>
                     </div>
-
-                    <div class="login-options">
-                        <a href="{{ route('password.request') }}"
-                            style="text-decoration:none; color:#2b5e3b; font-weight: 600;">
-                            Lupa Password?
-                        </a>
-                    </div>
-
                     <button type="submit" class="btn btn-login">Login</button>
                 </form>
             </div>

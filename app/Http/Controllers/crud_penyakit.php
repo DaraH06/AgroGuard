@@ -18,7 +18,7 @@ class crud_penyakit extends Controller
             ]) : view('admin.manajemenPenyakit.ManajemenPenyakit', ['daftar_penyakit'=>$data]);
     }
 
-    function store(Request $req, send_toFlask $flask)
+    function store(Request $req, send_toFlask $flask, data_ekstraksi $dataEkstraksi)
     {
         $req->validate([
             'nama_penyakit' => 'required|string',
@@ -72,6 +72,7 @@ class crud_penyakit extends Controller
 
                 // Update jumlah dataset
                 if ($datasetResult && $success) {
+                    $saveCsv = $dataEkstraksi->updateData($datasetResult['nama']);
                     $hasil->update(['jumlah dataset' => $datasetResult['jumlah'], 'lokasi csv' => $datasetResult['nama'], 'lokasi dataset' => $uniqId]);
                 }else{
                     File::deleteDirectory($extractPath);
@@ -84,19 +85,24 @@ class crud_penyakit extends Controller
         $refresh = $flask->refreshModel();
 
         if ($success) {
-            if($refresh['success']){
-                return response()->json([
-                    'success' => $success,
-                    'message' => $datasetResult ? $datasetResult['message'] : 'Ada kesalahan saat memproses dataset',
-                    'data' => $datasetResult['jumlah'],
-                    'lokasi dataset csv' => $datasetResult['nama']
-                ]);
-            }else{
+            if($refresh['success'] === false){
                 return response()->json([
                     'success' => false,
                     'message' => 'Penyakit berhasil ditambahkan, tapi gagal refresh model: ' . $refresh['message']
                 ], 500);
             }
+            if($saveCsv['success'] === false){
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Penyakit berhasil ditambahkan, tapi gagal menyimpan data ekstraksi: ' . $saveCsv['message']
+                ], 500);
+            }
+            return response()->json([
+                    'success' => $success,
+                    'message' => $datasetResult ? $datasetResult['message'] : 'Ada kesalahan saat memproses dataset',
+                    'data' => $datasetResult['jumlah'],
+                    'lokasi dataset csv' => $datasetResult['nama']
+                ]);
         }else{
                 return response()->json([
                     'success' => false,
@@ -151,7 +157,7 @@ class crud_penyakit extends Controller
         ]);
     }
 
-    function destroy(Request $req, send_toFlask $flask){
+    function destroy(Request $req, send_toFlask $flask, data_ekstraksi $ekstraksi){
         Log::info('Menerima permintaan delete untuk penyakit dengan ID: ' . $req->id);
         $query = penyakit::where('_id', $req->id)->first();
         if (!$query) {
@@ -163,6 +169,8 @@ class crud_penyakit extends Controller
         $path = $query->thumbnail;
         $path_dataset = $query->{'lokasi csv'};
         $path_gambar = $query->{'lokasi dataset'};
+        $name = $query->nama_penyakit;
+
         if ($query->delete()) {
             ($path && File::exists(public_path('images/'.$path))) ?
                 File::delete(public_path('images/'.$path)):
@@ -176,7 +184,9 @@ class crud_penyakit extends Controller
                 File::deleteDirectory(storage_path('app/archieves/images/'.$path_gambar)) :
                 Log::warning(("Dataset gambar " . $path_gambar . " tidak ditemukan"));
             
+            $ekstraksi->deleteData($name);
             $refresh = $flask->refreshModel();
+
             if($refresh['success']){
                 return response()->json([
                     'success' => true,

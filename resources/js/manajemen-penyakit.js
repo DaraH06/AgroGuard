@@ -164,6 +164,8 @@ if (formTambah) {
         const statusText = document.getElementById('uploadStatusText');
         const btnSimpan = document.getElementById('btnSimpanPenyakit');
 
+        statusText.textContent = '';
+
         // Tampilkan progress bar
         progressDiv.style.display = 'block';
         btnSimpan.disabled = true;
@@ -243,8 +245,8 @@ function hapus(id){
         .then(res => res.json())
         .then(dat => {
             if(dat.success){
-                alert(`${data.message}`);
-                setTimeout(() => location.reload());
+                alert(`${dat.message}`);
+                setTimeout(() => location.reload(), 1000);
             }else{
                 alert('Terjadi kesalahan saat menghapus data')
             }

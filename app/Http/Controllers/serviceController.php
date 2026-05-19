@@ -15,7 +15,7 @@ class serviceController extends Controller{
                 if (isset($flaskResult['tingkat keyakinan']) && is_array($flaskResult['tingkat keyakinan'])) {
                     foreach ($flaskResult['tingkat keyakinan'] as $key => $value) {
                         if ($key === $hasil) {
-                            $tingkat_keyakinan = $value;
+                            $tingkat_keyakinan = round($value, 2);
                             break;
                         }
                     }
@@ -45,7 +45,7 @@ class serviceController extends Controller{
         $rate = $response['tingkat keyakinan'];
         $keyakinan = [];
         foreach ($rate as $item => $value){
-            $keyakinan[$item] = $value * 100;
+            $keyakinan[$item] = round($value, 2) * 100 . '%';
         }
         $dump['tingkat keyakinan'] = $keyakinan;
         return $dump;

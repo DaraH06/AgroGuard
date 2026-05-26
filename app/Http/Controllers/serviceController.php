@@ -9,7 +9,7 @@ class serviceController extends Controller{
         if (isset($flaskResult['success']) && $flaskResult['success'] == true) {
             $hasil = $flaskResult['nama_penyakit'] ?? 'Unknown';
 
-            if ($hasil !== 'Healthy' && $hasil !== 'Unknown') {
+            if ($hasil !== 'Unknown') {
                 // Extract confidence percentage
                 $tingkat_keyakinan = 0.0;
                 if (isset($flaskResult['tingkat keyakinan']) && is_array($flaskResult['tingkat keyakinan'])) {

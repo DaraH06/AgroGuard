@@ -19,25 +19,15 @@
             </button>
         </div>
 
-        {{-- Search & Filter Bar --}}
+        {{-- Search Bar --}}
         <div class="card search-filter-card">
             <div class="card-body">
-                <div class="d-flex align-items-center gap-3">
-                    <div class="input-group flex-grow-1" style="max-width: 320px;">
-                        <span class="input-group-text border-end-0">
-                            <i class="bi bi-search"></i>
-                        </span>
-                        <input type="text" class="form-control border-start-0 ps-0" placeholder="Cari penyakit..."
-                            style="box-shadow: none;">
-                    </div>
-                    <div class="ms-auto d-flex gap-2">
-                        <button class="btn btn-filter">
-                            <i class="bi bi-funnel"></i> Filter
-                        </button>
-                        <button class="btn btn-filter">
-                            <i class="bi bi-sort-down"></i> Urutkan
-                        </button>
-                    </div>
+                <div class="input-group" style="max-width: 360px;">
+                    <span class="input-group-text border-end-0">
+                        <i class="bi bi-search"></i>
+                    </span>
+                    <input type="text" id="searchPenyakit" class="form-control border-start-0 ps-0" placeholder="Cari penyakit..."
+                        style="box-shadow: none;">
                 </div>
             </div>
         </div>
@@ -81,9 +71,20 @@
                                                 data-deskripsi='@json($baris['deskripsi'] ?? [])'
                                                 data-pencegahan='@json($baris['penanggulangan'] ?? [])'
                                                 data-penanganan='@json($baris['penanganan'] ?? [])'
+                                                data-riwayat="{{$baris['updated_at'] ?? $baris['created_at']}}"
                                                 data-thumbnail="{{ asset("images/{$baris['thumbnail']}") }}">Detail</button>
-                                            <button class="btn btn-sm btn-outline-primary btn-aksi btn-aksi-edit">Edit</button>
-                                            <button class="btn btn-sm btn-outline-danger btn-aksi btn-aksi-hapus">Hapus</button>
+                                            <button class="btn btn-sm btn-outline-primary btn-aksi btn-aksi-edit"
+                                                data-bs-toggle="modal" data-bs-target="#modalPenyakit"
+                                                data-mode="edit"
+                                                data-id="{{ $baris['id'] }}"
+                                                data-nama="{{ $baris['nama_penyakit'] }}"
+                                                data-ilmiah="{{ $baris['nama_ilmiah'] }}"
+                                                data-deskripsi='@json($baris['deskripsi'] ?? [])'
+                                                data-pencegahan='@json($baris['penanggulangan'] ?? [])'
+                                                data-penanganan='@json($baris['penanganan'] ?? [])'
+                                                data-thumbnail="{{ $baris['thumbnail'] }}">Edit</button>
+                                            <button class="btn btn-sm btn-outline-danger btn-aksi btn-aksi-hapus"
+                                                data-id="{{ $baris['id'] }}">Hapus</button>
                                         </div>
                                     </td>
                                 </tr>
@@ -92,26 +93,17 @@
                     </table>
                 </div>
 
+                {{-- Empty state for search --}}
+                <div id="emptySearchState" class="text-center py-4" style="display: none;">
+                    <i class="bi bi-search" style="font-size: 2rem; color: #cbd5e1;"></i>
+                    <p class="text-muted mt-2 mb-0" style="font-size: 0.9rem;">Tidak ada penyakit yang cocok dengan pencarian.</p>
+                </div>
+
                 {{-- Pagination Footer --}}
-                <div class="pagination-footer">
-                    <small class="text-muted">
-                        Menampilkan <strong>5</strong> dari <strong>5</strong> data
-                    </small>
+                <div class="pagination-footer" id="paginationFooter">
+                    <small class="text-muted" id="paginationInfo"></small>
                     <nav>
-                        <ul class="pagination pagination-sm mb-0 gap-1">
-                            <li class="page-item disabled">
-                                <button class="page-link"><i class="bi bi-chevron-left"></i></button>
-                            </li>
-                            <li class="page-item active">
-                                <button class="page-link">1</button>
-                            </li>
-                            <li class="page-item">
-                                <button class="page-link">2</button>
-                            </li>
-                            <li class="page-item">
-                                <button class="page-link"><i class="bi bi-chevron-right"></i></button>
-                            </li>
-                        </ul>
+                        <ul class="pagination pagination-sm mb-0 gap-1" id="paginationList"></ul>
                     </nav>
                 </div>
             </div>
@@ -123,10 +115,13 @@
     <div class="modal fade modal-penyakit" id="modalPenyakit" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
-                <form id="formTambahPenyakit" action="{{ route('admin.penyakit.store') }}" method="post" enctype="multipart/form-data">
+                <form id="formTambahPenyakit" action="{{ route('admin.penyakit.store') }}" method="post" enctype="multipart/form-data"
+                    data-store-url="{{ route('admin.penyakit.store') }}"
+                    data-update-url="{{ route('admin.penyakit.update') }}">
                     @csrf
+                    <input type="hidden" name="id" id="formPenyakitId" value="">
                     <div class="modal-header">
-                        <h5 class="modal-title">Tambah Penyakit Baru</h5>
+                        <h5 class="modal-title" id="modalPenyakitTitle">Tambah Penyakit Baru</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -190,12 +185,19 @@
                                 <label class="form-label">Thumbnail Penyakit</label>
                                 <input name="thumbnail_file" type="file" class="form-control" accept="image/*">
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-12" id="datasetSection">
                                 <label class="form-label">Dataset Training</label>
                                 <small class="text-muted d-block mb-2" style="font-size: 0.8rem;">
                                     Format file: ZIP berisi folder gambar penyakit (.jpg, .png, .jpeg)
                                 </small>
                                 <input name="dataset_zip" type="file" class="form-control" accept=".zip">
+                            </div>
+                            <div class="col-md-12" id="datasetNotice" style="display: none;">
+                                <label class="form-label">Dataset Training</label>
+                                <div class="alert mb-0 d-flex align-items-center gap-2" style="background: rgba(13,110,253,.08); border: 1px dashed rgba(13,110,253,.3); color: #0d6efd; border-radius: 10px; font-size: 0.875rem; padding: 12px 16px;">
+                                    <i class="bi bi-info-circle-fill fs-5"></i>
+                                    <span>Dataset training tidak dapat diubah melalui form edit. Untuk mengganti dataset, hapus penyakit lalu buat ulang.</span>
+                                </div>
                             </div>
                         </div>
 
@@ -257,6 +259,10 @@
                                 <div>
                                     <div class="detail-label">Rekomendasi Penanganan</div>
                                     <div class="detail-value" id="detailPenanganan"></div>
+                                </div>
+                                <div>
+                                    <div class="detail-label">Riwayat Pembaruan</div>
+                                    <div class="detail-value" id="detailRiwayat"></div>
                                 </div>
                             </div>
                         </div>

@@ -28,7 +28,9 @@ class SolusiPenyakitSeeder extends Seeder
                 'deskripsi' => config('konstanta.solusi')[$key]['deskripsi'],
                 'penanganan' => config('konstanta.solusi')[$key]['penanganan'],
                 'penanggulangan' => config('konstanta.solusi')[$key]['penanggulangan'],
-                'jumlah dataset' => 438
+                'jumlah dataset' => 438,
+                'lokasi csv' => null,
+                'lokasi dataset' => null
             ]);
         }
         } catch (\Exception $e) {

@@ -9,5 +9,8 @@ class penyakit extends Model
 {
     use HasFactory;
     protected $collection = 'penyakit';
-    protected $fillable = ['nama_penyakit', 'nama_ilmiah', 'deskripsi', 'penanganan', 'penanggulangan', 'jumlah dataset', 'thumbnail'];
+    protected $fillable = [
+        'nama_penyakit', 'nama_ilmiah', 'deskripsi',
+        'penanganan', 'penanggulangan', 'thumbnail', 
+        'jumlah dataset', 'lokasi csv', 'lokasi dataset'];
 }

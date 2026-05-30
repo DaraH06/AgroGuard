@@ -57,9 +57,13 @@ class dashboard extends Controller
 
         $status = filled($dataMentah);
 
-        if(!$status)return response()->json(['success'=>false, 'data'=>null]);
+        if (!$status) {
+            return $req->wantsJson() 
+                ? response()->json(['success' => false, 'data' => null])
+                : abort(404);
+        }
 
-        return response()->json([
+        return $req->wantsJson() ? response()->json([
             'success'=>$status, 'data'=> [
                 'data_tabel'=> $dataMentah->sortByDesc('created_at')->take(20)->values(),
                 'total'=> $this->getTotalLaporan($dataMentah),
@@ -68,7 +72,7 @@ class dashboard extends Controller
                 'ringkasan_label' => $this->getStatistikLabel($dataMentah),
                 'ringkasan_harian' => $this->getStatistikHarian($dataMentah)
             ]
-        ]);
+        ]) : '';
     }
 
     function mapVisualisasi(Request $req){

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\penyakit;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Client\ConnectionException;
 
 class send_toFlask extends Controller
 {
@@ -16,15 +17,19 @@ class send_toFlask extends Controller
             if (file_exists($alt)) {
                 $path = $alt;
             } else {
-                return ['status' => false, 'message' => 'File tidak ditemukan', 'path_tried' => $path];
+                return ['success' => false, 'message' => 'File tidak ditemukan', 'path_tried' => $path];
             }
         }
-
-        $response = Http::withHeaders([
-            'X-API-KEY' => config('services.flask.key')])
-            ->post(config('services.flask.uri').'ekstrak',[
-                'path_foto'=> $path
-        ]);
+        $response = null;
+        try{
+            $response = Http::timeout(120)->withHeaders([
+                'X-API-KEY' => config('services.flask.key')])
+                ->post(config('services.flask.uri').'ekstrak',[
+                    'path_foto'=> $path
+            ]);
+        } catch (ConnectionException $e) {
+            return ['success' => false, 'message' => 'Koneksi ke layanan gagal karena sedang pembaruan. Coba lagi nanti'];
+        }
 
         $cleaned = $this->cleaningResponse(
             json_decode($response, true));
@@ -51,7 +56,7 @@ class send_toFlask extends Controller
                 }
             }
             $keyakinan_3 = array_filter($keyakinan_3, function($value){
-                return $value !== "0,00%";
+                return $value != 0.00;
             });
             arsort($keyakinan_3);
             $top3 = array_slice($keyakinan_3, 0, 3, true);
@@ -85,27 +90,37 @@ class send_toFlask extends Controller
     /**
      * Kirim folder gambar ke Flask untuk ekstraksi fitur dan simpan ke MongoDB
      */
-    function prosesDataset(string $folderPath, string $label)
-    {
-        $response = Http::timeout(300)
-            ->withHeaders(['X-API-KEY' => config('services.flask.key')])
-            ->post(config('services.flask.uri').'proses-dataset', [
-                'path_folder' => $folderPath,
-                'label' => $label
-            ]);
-
-        return json_decode($response, true);
+    function prosesDataset(string $folderPath, string $label, string $outputPath)
+    {   
+        try{
+            $response = Http::timeout(300)
+                ->withHeaders(['X-API-KEY' => config('services.flask.key')])
+                ->post(config('services.flask.uri').'proses-dataset', [
+                    'path_folder' => $folderPath,
+                    'label' => $label,
+                    'path_result'=> $outputPath
+                ]);
+            
+            return json_decode($response, true);
+        }catch(ConnectionException $e){
+            return ['success' => false, 'message' => 'Tidak dapat menhubungi model. Hubungi developer atau administrator.'];
+        }
     }
 
     /**
      * Minta Flask untuk refresh/train ulang model KNN
      */
     function refreshModel()
-    {
-        $response = Http::timeout(60)
-            ->withHeaders(['X-API-KEY' => config('services.flask.key')])
-            ->post(config('services.flask.uri').'refresh_model');
-
-        return json_decode($response, true);
+    {   
+        try{
+            $response = Http::timeout(60)
+                ->withHeaders(['X-API-KEY' => config('services.flask.key')])
+                ->post(config('services.flask.uri').'refresh_model');
+                
+                Log::info('Response refresh model: ' . $response);
+                return json_decode($response, true);
+        }catch(ConnectionException $e){
+            return ['success' => false, 'message' => 'Tidak dapat menghubungi model untuk refresh. Hubungi developer atau administrator.'];
+        }
     }
 }

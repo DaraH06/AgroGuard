@@ -41,7 +41,16 @@
 }
 
 .btn-tambah {
-    background: linear-gradient(135deg, #2b5e3b, #16a34a);
+    --bs-btn-bg: #16a34a;
+    --bs-btn-color: white;
+    --bs-btn-hover-bg: #15803d;
+    --bs-btn-hover-color: white;
+    --bs-btn-active-bg: #15803d;
+    --bs-btn-active-color: white;
+    --bs-btn-disabled-bg: #16a34a;
+    --bs-btn-disabled-color: white;
+    --bs-btn-disabled-opacity: 0.7;
+    background-color: #16a34a;
     border: none;
     border-radius: 14px;
     color: white;
@@ -51,31 +60,24 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-}
-
-.btn-tambah::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    transition: left 0.5s;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .btn-tambah:hover {
-    background: linear-gradient(135deg, #1a4a2e, #15803d);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(43, 94, 59, 0.4);
+    background-color: #15803d;
+    box-shadow: 0 4px 14px rgba(22, 163, 74, 0.3);
     color: white;
 }
 
-.btn-tambah:hover::before {
-    left: 100%;
+.btn-tambah:active,
+.btn-tambah:focus,
+.btn-tambah:active:focus,
+.btn-tambah:first-child:active,
+:not(.btn-check) + .btn-tambah:active {
+    background-color: #15803d !important;
+    color: white !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
 }
 
 .table-main-card {
@@ -127,7 +129,7 @@
 }
 
 .btn-aksi:hover {
-    transform: translateY(-1px);
+    opacity: 0.95;
 }
 
 .btn-aksi-hapus {
@@ -137,10 +139,20 @@
 }
 
 .btn-aksi-hapus:hover {
-    background: linear-gradient(135deg, #ef4444, #dc2626);
-    border-color: #dc2626;
+    background-color: #ef4444;
+    border-color: #ef4444;
     color: white;
-    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+}
+
+.btn-aksi-hapus:active,
+.btn-aksi-hapus:focus,
+.btn-aksi-hapus:active:focus,
+.btn-aksi-hapus:first-child:active,
+:not(.btn-check) + .btn-aksi-hapus:active {
+    background-color: #dc2626 !important;
+    border-color: #dc2626 !important;
+    color: white !important;
+    box-shadow: none !important;
 }
 
 .user-avatar {
@@ -244,18 +256,30 @@
 }
 
 .btn-modal-delete {
-    background: linear-gradient(135deg, #ef4444, #dc2626);
+    background-color: #ef4444;
     border: none;
     color: white;
     font-weight: 700;
     border-radius: 12px;
     padding: 10px 24px;
-    transition: all 0.3s ease;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .btn-modal-delete:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(220, 38, 38, 0.35);
+    background-color: #dc2626;
+    box-shadow: 0 4px 14px rgba(220, 38, 38, 0.3);
+    color: white;
+}
+
+.btn-modal-delete:active,
+.btn-modal-delete:focus,
+.btn-modal-delete:active:focus,
+.btn-modal-delete:first-child:active,
+:not(.btn-check) + .btn-modal-delete:active {
+    background-color: #dc2626 !important;
+    color: white !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
 }
 
 .loading-spinner {

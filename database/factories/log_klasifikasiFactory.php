@@ -29,7 +29,7 @@ class log_klasifikasiFactory extends Factory
                     ]
                 ],
             'keyakinan_model'=>$this->faker->randomFloat(2, 0.40, 0.99),
-            'hasil_label'=>$this->faker->randomElement(config('konstanta.diseases')),
+            'hasil_label'=>$this->faker->randomElement(array_keys(config('konstanta.diseases'))),
             'created_at' => $this->faker->dateTimeBetween('-104 week', 'now')
         ];
     }

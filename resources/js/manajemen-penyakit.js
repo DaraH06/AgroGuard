@@ -3,6 +3,15 @@
  * Dynamic form fields & modal interactions
  */
 
+function getCsrfToken() {
+    const csrfTokenMeta = document.querySelector('meta[name="csrf-token"]');
+    if (!csrfTokenMeta) {
+        console.error('Meta tag CSRF-TOKEN tidak ditemukan!');
+        return null;
+    }
+    return csrfTokenMeta.getAttribute('content');
+}
+
 // Dynamic array inputs (add/remove) for pencegahan and rekomendasi_penanganan
 function addItem(listId, nameAttr, value = '') {
     const list = document.getElementById(listId);
@@ -72,20 +81,24 @@ if (modalPenyakit) {
         const trigger = event.relatedTarget;
 
         // clear existing
-        document.getElementById('pencegahan-list').innerHTML = '';
+        document.getElementById('deskripsi-list').innerHTML = '';
         document.getElementById('penanganan-list').innerHTML = '';
+        document.getElementById('pencegahan-list').innerHTML = '';
 
         if (trigger && trigger.dataset) {
+            populateList(trigger.dataset.deskripsi, 'deskripsi-list', 'deskripsi[]');
             populateList(trigger.dataset.pencegahan, 'pencegahan-list', 'pencegahan[]');
             populateList(trigger.dataset.penanganan, 'penanganan-list', 'rekomendasi_penanganan[]');
         } else {
             // opening via Add button - start with one empty item each
+            addItem('deskripsi-list', 'deskripsi[]', '');
             addItem('pencegahan-list', 'pencegahan[]', '');
             addItem('penanganan-list', 'rekomendasi_penanganan[]', '');
         }
     });
 
     modalPenyakit.addEventListener('hidden.bs.modal', function () {
+        document.getElementById('deskripsi-list').innerHTML = '';
         document.getElementById('pencegahan-list').innerHTML = '';
         document.getElementById('penanganan-list').innerHTML = '';
     });
@@ -114,15 +127,18 @@ document.querySelectorAll('.disease-detail-trigger').forEach((trigger) => {
         const deskripsi = trigger.dataset.deskripsi || '[]';
         const pencegahan = trigger.dataset.pencegahan || '[]';
         const penanganan = trigger.dataset.penanganan || '[]';
+        const riwayat = trigger.dataset.riwayat || '';
         const thumbnail = trigger.dataset.thumbnail || '';
 
         document.getElementById('detailNamaPenyakit').textContent = `Detail ${nama}`;
         document.getElementById('detailNamaTampil').textContent = nama;
         document.getElementById('detailNamaIlmiah').textContent = ilmiah;
+        document.getElementById('detailRiwayat').textContent = riwayat;
 
         renderMaybeArray('detailDeskripsi', deskripsi);
         renderMaybeArray('detailPencegahan', pencegahan);
         renderMaybeArray('detailPenanganan', penanganan);
+        renderMaybeArray('detailRiwayat', riwayat);
 
         const detailThumbnail = document.getElementById('detailThumbnail');
         detailThumbnail.src = thumbnail;
@@ -147,6 +163,8 @@ if (formTambah) {
         const progressBar = document.getElementById('uploadProgressBar');
         const statusText = document.getElementById('uploadStatusText');
         const btnSimpan = document.getElementById('btnSimpanPenyakit');
+
+        statusText.textContent = '';
 
         // Tampilkan progress bar
         progressDiv.style.display = 'block';
@@ -189,7 +207,7 @@ if (formTambah) {
             progressBar.style.width = '100%';
 
             if (data.success) {
-                statusText.textContent = '✅ ' + (data.dataset?.message || 'Penyakit berhasil ditambahkan!');
+                statusText.textContent = '✅ ' + (`${data.message} berjumlah ${data.data} data`);
                 progressBar.classList.remove('progress-bar-animated');
 
                 // Reload halaman setelah 1.5 detik
@@ -211,3 +229,51 @@ if (formTambah) {
         });
     });
 }
+
+function hapus(id){
+    const konfirmasi = confirm('Apakah Anda yakin mau menghapus data ini? Ini akan menghapus seluruh dataset dengan label terkait dan tidak dapat dibatalkan')
+    if(konfirmasi){
+        const token = getCsrfToken();
+        fetch('/admin/penyakit/delete/'+ id, {
+            method: 'DELETE',
+            headers:{
+                'X-Requested-With': 'XMLHttpRequest',
+                'Accept': 'application/json',
+                'X-CSRF-TOKEN':token
+            }
+        })
+        .then(res => res.json())
+        .then(dat => {
+            if(dat.success){
+                alert(`${dat.message}`);
+                setTimeout(() => location.reload(), 1000);
+            }else{
+                alert('Terjadi kesalahan saat menghapus data')
+            }
+        })
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const tableBody = document.querySelector('.table-responsive table tbody'); // Pastikan selector ini tepat
+
+    if (tableBody) {
+        tableBody.addEventListener('click', function(e) {
+            // Cek apakah elemen yang diklik adalah tombol hapus
+            // Gunakan class yang paling spesifik
+            if (e.target.classList.contains('btn-aksi-hapus')) {
+                const button = e.target;
+                // Ambil ID dari atribut data-id
+                const id = button.getAttribute('data-id');
+
+                if (id) {
+                    console.log('Tombol hapus diklik, ID:', id); // Log untuk debug
+                    hapus(id); // Panggil fungsi hapus
+                    e.preventDefault(); // Mencegah aksi default tombol jika ada
+                } else {
+                    console.error('Tombol hapus tidak memiliki atribut data-id');
+                }
+            }
+        });
+    }
+});

@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\FlutterImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class FlutterImageController extends Controller
 {
-       public function upload(Request $request, send_toFlask $FlaskService)
+       public function upload(Request $request, send_toFlask $FlaskService, serviceController $serviceController)
     {
         try {
             $request->validate([
@@ -42,36 +43,10 @@ class FlutterImageController extends Controller
                 'uploaded_at' => now(),
             ]);
 
+            $cleanedResult = $serviceController->cleaningResponse($flaskResult);
             // Save to log_klasifikasi if classification is successful and not Healthy
-            if (isset($flaskResult['success']) && $flaskResult['success'] == true) {
-                $hasil = $flaskResult['nama_penyakit'] ?? 'Unknown';
-                
-                if ($hasil !== 'Healthy' && $hasil !== 'Unknown') {
-                    // Extract confidence percentage
-                    $tingkat_keyakinan = '0%';
-                    if (isset($flaskResult['tingkat keyakinan']) && is_array($flaskResult['tingkat keyakinan'])) {
-                        foreach ($flaskResult['tingkat keyakinan'] as $key => $value) {
-                            if ($key === $hasil) {
-                                $tingkat_keyakinan = $value;
-                                break;
-                            }
-                        }
-                    }
-
-                    \App\Models\log_klasifikasi::create([
-                        'hasil_label' => $hasil,
-                        'keyakinan_model' => $tingkat_keyakinan,
-                        'lokasi' => [
-                            'provinsi' => $request->input('provinsi', 'Tidak diketahui'),
-                            'kabupaten' => $request->input('kabupaten', 'Tidak diketahui'),
-                            'kecamatan' => $request->input('kecamatan', 'Tidak diketahui'),
-                        ],
-                        'created_at' => now(),
-                        'updated_at' => now(),
-                    ]);
-                }
-            }
-
+            $serviceController->updateLog($request, $flaskResult);
+            
             return response()->json([
                 'success' => true,
                 'message' => 'Gambar berhasil diupload',
@@ -84,7 +59,7 @@ class FlutterImageController extends Controller
                     'uploaded_at' => $upload->uploaded_at,
                 ],
                 // Sertakan hasil ekstraksi dari Flask (jika ada)
-                'extraction' => $flaskResult ?? null,
+                'extraction' => $cleanedResult ?? null,
             ], 201);
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([

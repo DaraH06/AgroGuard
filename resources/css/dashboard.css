@@ -100,8 +100,6 @@
 .date-pill:hover {
     background-color: #dcfce7;
     border-color: #86efac;
-    box-shadow: 0 4px 12px rgba(22, 163, 74, 0.15);
-    transform: translateY(-1px);
 }
 
 .date-pill:focus {
@@ -345,42 +343,40 @@ input[type="month"].date-pill {
 }
 
 .btn-export {
-    background: linear-gradient(135deg, #2b5e3b, #16a34a);
+    --bs-btn-bg: #16a34a;
+    --bs-btn-color: white;
+    --bs-btn-hover-bg: #15803d;
+    --bs-btn-hover-color: white;
+    --bs-btn-active-bg: #15803d;
+    --bs-btn-active-color: white;
+    --bs-btn-disabled-bg: #16a34a;
+    --bs-btn-disabled-color: white;
+    --bs-btn-disabled-opacity: 0.7;
+    background-color: #16a34a;
     border: none;
     border-radius: 16px;
     color: white;
     font-weight: 600;
     font-size: 0.95rem;
     padding: 16px 24px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-}
-
-.btn-export::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    transition: left 0.5s;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .btn-export:hover {
-    background: linear-gradient(135deg, #1a4a2e, #15803d);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(43, 94, 59, 0.4);
+    background-color: #15803d;
+    box-shadow: 0 4px 14px rgba(22, 163, 74, 0.3);
     color: white;
 }
 
-.btn-export:hover::before {
-    left: 100%;
-}
-
-.btn-export:active {
-    transform: translateY(0);
+.btn-export:active,
+.btn-export:focus,
+.btn-export:active:focus,
+.btn-export:first-child:active,
+:not(.btn-check) + .btn-export:active {
+    background-color: #15803d !important;
+    color: white !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
 }
 
 .btn-export i {

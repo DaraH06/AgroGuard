@@ -128,8 +128,8 @@ Pastikan semua tools berikut sudah terinstall di sistem Anda:
 
 ```bash
 # 1. Clone repositori ini
-git clone https://github.com/Darah06/AgroGuard-admin.git
-cd AgroGuard-admin
+git clone https://github.com/Darah06/AgroGuard.git
+cd AgroGuard
 
 # 2. Masuk ke folder Laravel
 cd AgroGuard-Admin

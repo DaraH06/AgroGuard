@@ -58,7 +58,7 @@
 ## 📁 Struktur Projek (Monorepo)
 
 ```
-AgroGuard-admin/          ← Root repository ini
+AgroGuard/                ← Root repository ini
 ├── AgroGuard-Admin/      ← Aplikasi Laravel (Dashboard Web)
 │   ├── app/
 │   │   ├── Http/Controllers/

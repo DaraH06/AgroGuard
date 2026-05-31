@@ -1,0 +1,9 @@
+venv/
+*.png
+*.csv
+*.jpg
+.env
+__pycache__/
+*.pyc
+requirements.in
+hasil/

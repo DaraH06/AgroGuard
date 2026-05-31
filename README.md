@@ -58,7 +58,7 @@
 ## 📁 Struktur Projek (Monorepo)
 
 ```
-AgroGuard/                ← Root repository ini
+AgroGuard-admin/          ← Root repository ini
 ├── AgroGuard-Admin/      ← Aplikasi Laravel (Dashboard Web)
 │   ├── app/
 │   │   ├── Http/Controllers/
@@ -128,7 +128,7 @@ Pastikan semua tools berikut sudah terinstall di sistem Anda:
 
 ```bash
 # 1. Clone repositori ini
-git clone https://github.com/Darah06/AgroGuard.git
+git clone https://github.com/Darah06/AgroGuard-admin.git
 cd AgroGuard
 
 # 2. Masuk ke folder Laravel

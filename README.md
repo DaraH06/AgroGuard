@@ -50,7 +50,7 @@
 | **Bundler**   | [Vite](https://vitejs.dev/)                                                  |
 | **Export**    | [SimpleXLSXGen](https://github.com/shuchkin/simplexlsxgen)                   |
 | **AI Server** | [Flask](https://flask.palletsprojects.com/) + [scikit-learn](https://scikit-learn.org/) (KNN) |
-| **Vision**    | [OpenCV](https://opencv.org/), [scikit-image](https://scikit-image.org/), [Pillow](https://pillow.readthedocs.io/) |
+| **Vision**    | [OpenCV](https://opencv.org/) |
 | **Language**  | PHP ^8.2, Python ^3.10                                                       |
 
 ---
@@ -216,13 +216,10 @@ Perintah di atas akan menginstall semua library yang dibutuhkan. Berikut library
 | `scikit-learn`       | 1.8.0        | Model KNN & preprocessing (StandardScaler)          |
 | `joblib`             | 1.5.3        | Menyimpan & memuat model terlatih (`.joblib`)       |
 | `opencv-python`      | 4.13.0.92    | Pemrosesan gambar (segmentasi, analisis warna)      |
-| `scikit-image`       | 0.26.0       | Ekstraksi fitur tekstur gambar                      |
-| `Pillow`             | 12.2.0       | Membaca & manipulasi file gambar                    |
 | `numpy`              | 2.4.4        | Komputasi numerik & array                           |
 | `pandas`             | 3.0.2        | Manipulasi data tabular                             |
 | `pymongo`            | 4.17.0       | Koneksi ke database MongoDB                         |
 | `python-dotenv`      | 1.2.2        | Membaca konfigurasi dari file `.env`                |
-| `matplotlib`         | 3.10.9       | Visualisasi data (opsional, untuk debugging)        |
 
 ### Konfigurasi `.env`
 
@@ -349,5 +346,5 @@ Proyek ini dilisensikan di bawah **MIT License** - lihat file [LICENSE](LICENSE)
 ---
 
 <div align="center">
-  <i>Dikembangkan dengan ❤️ oleh Tim AgroGuard untuk masa depan pertanian yang lebih cerdas.</i>
+  <i>Dikembangkan oleh Tim AgroGuard untuk masa depan pertanian yang lebih cerdas.</i>
 </div>

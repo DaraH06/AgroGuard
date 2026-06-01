@@ -55,7 +55,7 @@
 
 ---
 
-## 📁 Struktur Projek (Monorepo)
+## 📁 Struktur Projek
 
 ```
 AgroGuard-admin/          ← Root repository ini

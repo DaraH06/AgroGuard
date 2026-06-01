@@ -208,18 +208,7 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-Perintah di atas akan menginstall semua library yang dibutuhkan. Berikut library-library utamanya:
-
-| Library              | Versi        | Fungsi                                              |
-| -------------------- | ------------ | --------------------------------------------------- |
-| `Flask`              | 3.1.3        | Web framework untuk API server                      |
-| `scikit-learn`       | 1.8.0        | Model KNN & preprocessing (StandardScaler)          |
-| `joblib`             | 1.5.3        | Menyimpan & memuat model terlatih (`.joblib`)       |
-| `opencv-python`      | 4.13.0.92    | Pemrosesan gambar (segmentasi, analisis warna)      |
-| `numpy`              | 2.4.4        | Komputasi numerik & array                           |
-| `pandas`             | 3.0.2        | Manipulasi data tabular                             |
-| `pymongo`            | 4.17.0       | Koneksi ke database MongoDB                         |
-| `python-dotenv`      | 1.2.2        | Membaca konfigurasi dari file `.env`                |
+Perintah di atas akan menginstall semua library yang dibutuhkan.
 
 ### Konfigurasi `.env`
 

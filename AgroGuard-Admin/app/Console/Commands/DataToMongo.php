@@ -46,6 +46,13 @@ class DataToMongo extends Command
             $count = 0;
             while (($row = fgetcsv($file)) !== false) {
                 $data = array_combine($header, $row);
+
+                foreach ($data as $key =>$value){
+                    if ($key !== 'Label'){
+                        $data[$key] = (float) $value;
+                    }
+                }
+
                 \App\Models\DataEkstraksi::create($data);
                 $count++;
             }

@@ -19,6 +19,13 @@ class data_ekstraksi extends Controller
         $count = 0;
         while (($row = fgetcsv($file)) !== false) {
             $data = array_combine($header, $row);
+
+            foreach ($data as $key =>$value){
+                    if ($key !== 'Label'){
+                        $data[$key] = (float) $value;
+                    }
+                }
+
             DataEkstraksi::create($data);
             $count++;
         }

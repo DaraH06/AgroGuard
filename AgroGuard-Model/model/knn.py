@@ -54,7 +54,7 @@ def initiate(dataset:list):
     # X_train = df.drop(['Label'], axis=1)
     # Y_train = df['Label']
 
-    knn = KNeighborsClassifier(n_neighbors=5, weights='distance', metric='canberra')
+    knn = KNeighborsClassifier(n_neighbors=5, weights='distance')
     knn.fit(X=scaler.fit_transform(X_train), y=le.fit_transform(Y_train))
 
     import joblib
